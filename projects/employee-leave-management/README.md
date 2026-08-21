@@ -56,6 +56,10 @@ The core workflow covers:
 
 Employee Request → Manager Review → Approve / Reject / Return for Correction → Resubmit → Cancellation where applicable.
 
+## Workflow Diagram
+
+![Employee Leave Management Workflow](09-visuals/LEAVE_WORKFLOW.png)
+
 ## Case Study Note
 
 This is an independent portfolio case study created to demonstrate practical QA analysis and test-design skills.
