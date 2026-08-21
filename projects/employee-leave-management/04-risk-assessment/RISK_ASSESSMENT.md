@@ -4,35 +4,17 @@
 
 This document identifies the main business and functional risks considered in the Employee Leave Management Portal QA case study.
 
-Testing effort is prioritized based on the potential impact of failure and the assumed likelihood of defects.
-
-Risk ratings in this case study are illustrative and based on functional complexity and business impact.
-
-In a real project, likelihood would be refined using defect history, production incidents, change scope, architecture, technical complexity, and stakeholder input.
+Testing effort is prioritized based on the potential business impact of failure and the assumed likelihood of defects.
 
 ---
 
 ## Risk Rating Approach
 
-### Likelihood
+- **Likelihood:** How likely the issue is to occur based on available information.
+- **Impact:** The business consequence if the issue occurs.
+- **Risk Priority:** Overall testing priority based on likelihood and impact.
 
-Likelihood represents how likely a defect or failure is to occur.
-
-- Low: Unlikely based on the simplicity or stability of the area
-- Medium: Possible due to multiple rules, validations, or dependencies
-- High: More likely due to complexity, frequent change, or known instability
-
-### Impact
-
-Impact represents the consequence if the failure occurs.
-
-- Low: Minor inconvenience with little business effect
-- Medium: Noticeable operational impact but workaround may exist
-- High: Significant effect on employee entitlement, workflow, privacy, security, or data integrity
-
-### Risk Priority
-
-Risk Priority considers both likelihood and impact and helps determine where deeper testing should be applied.
+For this case study, ratings are assumption-based. In a real project, they would be refined using defect history, production incidents, change scope, architecture, technical complexity, and stakeholder input.
 
 ---
 
@@ -40,7 +22,7 @@ Risk Priority considers both likelihood and impact and helps determine where dee
 
 | Area | Likelihood | Impact | Risk Priority | Reason |
 |---|---|---|---|---|
-| Leave Request Submission | Medium | High | High | Core entry point involving dates, leave type, validation, balance checks, and request persistence |
+| Leave Request Submission | Medium | High | High | Core entry point involving dates, leave type, validations, balance checks, and request persistence |
 | Leave Balance Calculation | Medium | High | Critical | Incorrect calculation can directly affect employee leave entitlement |
 | Manager Approval / Rejection | Medium | High | High | Failure can block or incorrectly process the core business workflow |
 | Employee Self-Approval | Low | High | High | Less likely if permissions are designed correctly, but failure creates a serious authorization issue |
@@ -73,7 +55,7 @@ The following areas receive the deepest testing:
 
 ## Release-Blocking Risks
 
-The following conditions may result in a No Go recommendation:
+The following conditions may result in a **No Go** recommendation:
 
 - Incorrect vacation balance calculation
 - Leave balance becoming negative unexpectedly
@@ -84,7 +66,7 @@ The following conditions may result in a No Go recommendation:
 - Core approval workflow unusable
 - Incorrect status after approval or rejection
 - Data loss or corruption
-- Critical audit trail missing for important actions
+- Missing critical audit trail for important actions
 
 ---
 
