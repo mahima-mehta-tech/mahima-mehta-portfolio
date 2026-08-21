@@ -2,70 +2,61 @@
 
 ## Overview
 
-This is an independent QA case study designed to demonstrate how I approach an enterprise application from business-rule understanding through risk-based test design and release assessment.
+This independent QA case study demonstrates how I approach an enterprise workflow from business-rule understanding and risk analysis through test design and release assessment.
 
-The case study focuses on an Employee Leave Management Portal used by employees, managers, and HR/Admin users.
+The focus is on the highest-risk areas of an Employee Leave Management Portal, including leave balance accuracy, approvals, authorization, state transitions, and cancellation handling.
 
-## Key Areas Covered
+## Skills Demonstrated
 
 - Functional Testing
 - Risk-Based Testing
 - Negative Testing
 - Boundary Value Testing
 - State Transition Testing
-- Role-Based Access and Authorization
-- Leave Balance and Data Integrity Validation
-- Smoke Testing
-- Sanity Testing
-- Regression Testing
-- Exploratory Testing
+- Role-Based Access & Authorization Testing
+- Smoke, Sanity & Regression Planning
+- Data Integrity Validation
 - Release Risk Assessment
 
-## Business Areas Covered
+## Key Artifacts
 
-The system supports the following leave categories:
+- [Project Overview](01-project-overview/PROJECT_OVERVIEW.md)
+- [Business Rules](02-business-rules/BUSINESS_RULES.md)
+- [Test Strategy](03-test-strategy/TEST_STRATEGY.md)
+- [Risk Assessment](04-risk-assessment/RISK_ASSESSMENT.md)
+- [Role & Permission Matrix](05-roles-and-permissions/ROLE_PERMISSION_MATRIX.md)
+- [State Transition Matrix](06-state-transitions/STATE_TRANSITION_MATRIX.md)
+- [Workflow Test Cases](07-test-cases/WORKFLOW_TEST_CASES.md)
+- [Leave Balance Test Cases](07-test-cases/LEAVE_BALANCE_TEST_CASES.md)
+- [Authorization Test Cases](07-test-cases/AUTHORIZATION_TEST_CASES.md)
+- [Test Execution Approach](08-test-execution/TEST_EXECUTION_APPROACH.md)
+- [Test Summary & Release Recommendation](10-test-summary/TEST_SUMMARY.md)
 
-- Annual Vacation
-- Half-Day Vacation
-- Sick Leave
-- Leave Without Pay
-- Time Off in Lieu / Comp Off
-- Parental Leave
+## Test Focus
 
-Annual Vacation, approval workflow, leave balances, authorization, and state transitions receive the deepest test coverage.
+Testing is intentionally risk-based.
 
-Other leave types are included with representative scenarios to demonstrate different business rules without expanding the case study into a full HRMS implementation.
+Deeper coverage is applied to:
 
-## QA Approach
-
-Testing is prioritized based on business risk rather than treating every feature equally.
-
-Higher-risk areas include:
-
-- Leave balance calculations
-- Request submission
-- Manager approval and rejection
-- Unauthorized access
+- Leave request submission
+- Leave balance calculation
+- Approval and rejection
 - Employee self-approval prevention
-- Status transitions
+- Role-based access
 - Cancellation and balance restoration
-- Auditability and data integrity
+- Critical status transitions
+- Duplicate processing prevention
 
-## Current Project Status
+Other leave types are covered with representative scenarios rather than exhaustive testing.
 
-Completed or defined:
+## Workflow
 
-- Business rules and assumptions
-- Risk-based testing approach
-- Test strategy
-- Role and permission model
-- State transition workflow
-- Workflow test cases
-- Leave balance and calculation test cases
-- Authorization testing scope
+The core workflow covers:
 
-Additional test evidence and supporting artifacts will be added as the case study progresses.
+Employee Request → Manager Review → Approve / Reject / Return for Correction → Resubmit → Cancellation where applicable.
 
-## Portfolio Note
+## Case Study Note
 
-This is an independent portfolio case study created to demonstrate practical QA analysis and test-design skills. It does not represent testing performed on a production HR system.
+This is an independent portfolio case study created to demonstrate practical QA analysis and test-design skills.
+
+Business rules are simplified for the case study and do not represent the complete HR policy of any specific organization.
