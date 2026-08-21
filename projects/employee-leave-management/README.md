@@ -8,15 +8,16 @@ The focus is on the highest-risk areas of an Employee Leave Management Portal, i
 
 ## Skills Demonstrated
 
-- Functional Testing
-- Risk-Based Testing
-- Negative Testing
-- Boundary Value Testing
+- Functional & End-to-End Testing
+- Test Strategy & Risk-Based Test Planning
+- Test Scenario & Test Case Design
+- Negative & Boundary Value Testing
 - State Transition Testing
-- Role-Based Access & Authorization Testing
-- Smoke, Sanity & Regression Planning
-- Data Integrity Validation
-- Release Risk Assessment
+- Role-Based Access & Authorization Validation
+- Leave Balance & Data Integrity Validation
+- Smoke, Sanity & Regression Testing
+- Business Rule Validation
+- Defect & Release Risk Assessment
 
 ## Key Artifacts
 
