@@ -37,14 +37,18 @@ The focus is on the highest-risk areas of an Employee Leave Management Portal, i
 - [Test Summary & Release Recommendation](10-test-summary/TEST_SUMMARY.md)
 - [SQL Analysis & Business Questions](11-data-analysis/SQL_ANALYSIS.md)
 - [Practical SQL Queries](11-data-analysis/leave_analysis.sql)
-- [Power BI Dashboard Design, Measures & Data-Driven Preview](12-power-bi/POWER_BI_DASHBOARD.md)
+- [Power BI Dashboard, Data Model & Measures](12-power-bi/POWER_BI_DASHBOARD.md)
 - [Analysis Dataset](data/)
 
 ## Data Analysis & Reporting
 
-The project uses four related synthetic datasets: Employees, LeaveRequests, LeaveTypes and LeaveBalances. SQL is used to investigate request status, department activity, pending requests, leave types, balances, monthly trends and business-rule/data-quality exceptions.
+The project uses four related synthetic datasets: Employees, LeaveRequests, LeaveTypes and LeaveBalances.
 
-The same model is used for the Power BI extension, with KPI cards, department and leave-type analysis, status distribution, monthly trends and interactive slicers. The Power BI documentation includes the intended relationships and DAX measures. A data-driven dashboard preview is included using the same synthetic dataset. It is clearly identified as a portfolio preview; actual Power BI Desktop screenshots can be added after the native report is rebuilt.
+SQL is used for practical BA-focused investigation including joins, grouping and aggregation, leave-balance analysis, pending-request investigation, monthly date analysis, simple subqueries and business-rule/data-quality exception checks.
+
+The same four-table model is used in Power BI. The completed report contains KPI cards for total requests, approved requests, pending requests and requested days; department and leave-type analysis; status distribution; monthly trend; and Department and Status slicers.
+
+Actual Power BI Desktop screenshots of both the dashboard and the data model are included in the Power BI section.
 
 ## Test Focus
 
