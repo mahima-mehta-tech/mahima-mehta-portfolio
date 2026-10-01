@@ -122,11 +122,24 @@ This dashboard is intended to demonstrate more than visual creation. It connects
 
 That makes the Power BI work relevant to Business Analyst and Business Systems Analyst roles rather than positioning the project as a standalone data-analyst exercise.
 
-## Evidence
+## Portfolio Dashboard Preview
 
-Once the report is rebuilt in Power BI Desktop, add:
+![Employee Leave Management dashboard preview](POWER_BI_DASHBOARD_PREVIEW.svg)
 
-- `POWER_BI_MODEL.png` - screenshot of Model view
-- `POWER_BI_DASHBOARD.png` - screenshot of the finished report page
+The preview above is generated from the same synthetic project dataset and represents the dashboard design and analysis intended for Power BI. Current dataset KPIs are:
 
-Those screenshots should come from the actual Power BI report so the portfolio remains fully interview-defensible.
+- **Total requests:** 180
+- **Approved:** 127
+- **Pending:** 24
+- **Total requested days:** 591
+
+It is a portfolio dashboard preview, not a screenshot exported from Power BI Desktop.
+
+## Power BI Desktop Evidence
+
+When the report is opened and rebuilt in Power BI Desktop, the portfolio can additionally include:
+
+- `POWER_BI_MODEL.png` - actual Model view
+- `POWER_BI_DASHBOARD.png` - actual report-page screenshot
+
+Keeping the preview and Desktop evidence distinct makes the project transparent and interview-defensible.
