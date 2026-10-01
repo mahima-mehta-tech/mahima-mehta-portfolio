@@ -4,9 +4,9 @@ This section extends the Employee Leave Management case study from workflow and 
 
 ## Business questions
 
-The SQL work uses the same synthetic leave-management domain to answer questions a BA or Functional Analyst may investigate:
+The SQL work uses the same synthetic leave-management domain to answer practical questions a BA or Functional Analyst may investigate, including:
 
-- What is the distribution of Approved, Pending, Rejected and Cancelled requests?
+- What is the distribution of leave requests by status?
 - Which departments generate the most leave activity?
 - Which employees have no leave requests?
 - Which employees have submitted more than two requests?
@@ -14,13 +14,25 @@ The SQL work uses the same synthetic leave-management domain to answer questions
 - Which requests remain pending?
 - Which leave types account for the most approved leave?
 - How does request volume change by month?
-- Are there data exceptions that should be checked against the business rules?
+- Are there leave-balance exceptions that should be investigated?
+- Which employees have below-average remaining leave balance?
+- Which employees currently have a pending request?
 
-## Techniques demonstrated
+## SQL techniques demonstrated
 
-INNER JOIN, LEFT JOIN, WHERE, GROUP BY, HAVING, CASE, NULL checks, aggregate functions and date grouping.
+The queries are intentionally kept practical and interview-explainable for a Business Analyst / Functional Analyst profile.
 
-## Example: department-level analysis
+- INNER JOIN
+- LEFT JOIN
+- WHERE and ORDER BY
+- GROUP BY and HAVING
+- COUNT, SUM and AVG
+- CASE
+- IS NULL
+- Date grouping with SQLite `strftime`
+- Two simple subqueries
+
+## Join example
 
 ```sql
 SELECT e.Department,
@@ -32,9 +44,37 @@ GROUP BY e.Department
 ORDER BY TotalRequests DESC;
 ```
 
-This connects employee master data with leave transactions so leave volume can be analysed in a business context.
+This combines employee master data with leave transactions so activity can be analysed by department.
 
-## Example: business-rule/data-quality investigation
+## Simple subquery example
+
+```sql
+SELECT EmployeeID, EmployeeName, Department
+FROM Employees
+WHERE EmployeeID IN (
+    SELECT EmployeeID
+    FROM LeaveRequests
+    WHERE Status = 'Pending'
+)
+ORDER BY EmployeeID;
+```
+
+This identifies employees who currently have a pending leave request.
+
+## Date analysis example
+
+```sql
+SELECT strftime('%Y-%m', RequestDate) AS RequestMonth,
+       COUNT(*) AS RequestCount,
+       SUM(RequestedDays) AS RequestedDays
+FROM LeaveRequests
+GROUP BY strftime('%Y-%m', RequestDate)
+ORDER BY RequestMonth;
+```
+
+This groups leave activity by month to support trend analysis.
+
+## Business-rule / data-quality investigation
 
 ```sql
 SELECT e.EmployeeID, e.EmployeeName, e.Department,
@@ -45,7 +85,7 @@ JOIN LeaveBalances lb ON e.EmployeeID = lb.EmployeeID
 WHERE lb.ApprovedDaysUsed > lb.AnnualEntitlementDays;
 ```
 
-This query deliberately treats the result as an exception to investigate, rather than automatically assuming the data is wrong. A BA would clarify the policy and expected behaviour before recommending a change.
+The result is treated as an exception to investigate rather than automatically assuming the data is wrong. A BA would clarify the business rule and expected behaviour before recommending a change.
 
 ## Full practical query set
 
@@ -53,6 +93,6 @@ See [leave_analysis.sql](leave_analysis.sql).
 
 ## Power BI
 
-The same four-table dataset can be used to build a Power BI model and dashboard. The intended report contains KPI cards for total requests, approved requests, pending requests and requested days; leave by department and type; request-status distribution; monthly trend; and Department, Status and Leave Type slicers.
+The same four-table dataset is used in the Power BI report. The completed report includes KPI cards for total requests, approved requests, pending requests and requested days; analysis by department and leave type; request-status distribution; monthly trend; and Department and Status slicers.
 
-The Power BI section will only be represented as completed practical work once the report is rebuilt and actual report/model screenshots are available.
+Actual Power BI Desktop dashboard and data-model screenshots are included in the [Power BI section](../12-power-bi/POWER_BI_DASHBOARD.md).
