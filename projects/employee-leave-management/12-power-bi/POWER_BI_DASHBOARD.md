@@ -2,27 +2,26 @@
 
 ## Objective
 
-Extend the Employee Leave Management case study into an interactive management view using the same synthetic dataset used for SQL analysis.
+Extend the Employee Leave Management case study into a simple interactive management view using the same synthetic dataset used for SQL analysis.
 
-The dashboard is designed to answer practical questions such as:
+The report answers practical questions such as:
 
 - How many leave requests have been submitted?
-- How many are Approved or still Pending?
+- How many are Approved or Pending?
 - Which departments generate the most leave activity?
 - Which leave types are used most often?
-- How does request volume change over time?
-- Can a user filter the analysis by department, status or leave type?
+- How does request volume change by month?
 
 ## Data Model
 
-Use these four tables:
+The Power BI model uses four tables:
 
-- **Employees** - one row per employee
-- **LeaveRequests** - transactional leave-request records
-- **LeaveTypes** - one row per leave type
-- **LeaveBalances** - one row per employee in this synthetic dataset
+- **Employees** - employee master data
+- **LeaveRequests** - leave-request transactions
+- **LeaveTypes** - leave-type reference data
+- **LeaveBalances** - employee leave balances
 
-Recommended relationships:
+Relationships used in the model:
 
 | From | To | Cardinality |
 |---|---|---|
@@ -30,11 +29,13 @@ Recommended relationships:
 | LeaveTypes[LeaveTypeID] | LeaveRequests[LeaveTypeID] | 1 : many |
 | Employees[EmployeeID] | LeaveBalances[EmployeeID] | 1 : 1 |
 
-Use single-direction filtering from the dimension/master tables into the transactional table where applicable.
+### Actual Power BI Model
 
-## Measures
+![Power BI data model](POWER_BI_DATA_MODEL.jpg)
 
-Create these measures in Power BI:
+## DAX Measures
+
+Four straightforward measures support the report:
 
 ```DAX
 Total Requests =
@@ -54,92 +55,40 @@ CALCULATE(
 
 Total Requested Days =
 SUM(LeaveRequests[RequestedDays])
-
-Approval Rate =
-DIVIDE(
-    [Approved Requests],
-    [Total Requests],
-    0
-)
 ```
 
-## Dashboard Layout
+The measures are intentionally simple and focused on the business questions being analysed.
 
-### KPI cards
+## Dashboard
 
-1. Total Requests
-2. Approved Requests
-3. Pending Requests
-4. Total Requested Days
+The report includes:
 
-### Visuals
+- KPI cards for Total Requests, Approved Requests, Pending Requests and Total Requested Days
+- Leave Requests by Department
+- Leave Requests by Type
+- Request Status
+- Monthly Leave Request Trend
+- Department and Status dropdown slicers
 
-**Leave Requests by Department**
-- Visual: clustered bar chart
-- Axis: Employees[Department]
-- Value: Total Requests
+### Actual Power BI Dashboard
 
-**Requests by Leave Type**
-- Visual: clustered column chart
-- Axis: LeaveTypes[LeaveType]
-- Value: Total Requests
+![Employee Leave Management Power BI dashboard](POWER_BI_DASHBOARD.jpg)
 
-**Request Status**
-- Visual: donut chart
-- Legend: LeaveRequests[Status]
-- Value: Total Requests
+For the current synthetic dataset, the report shows:
 
-**Monthly Leave Trend**
-- Visual: line chart
-- Axis: LeaveRequests[RequestDate] by month
-- Value: Total Requests
-
-### Slicers
-
-- Department
-- Status
-- Leave Type
-
-## Suggested Page Structure
-
-```text
-EMPLOYEE LEAVE MANAGEMENT | HR ANALYTICS
-
-[ Total Requests ] [ Approved ] [ Pending ] [ Requested Days ]
-
-[ Requests by Department       ] [ Request Status       ]
-
-[ Monthly Request Trend        ] [ Requests by Type     ]
-
-[ Department ] [ Status ] [ Leave Type ]
-```
+- **Total Requests:** 180
+- **Approved Requests:** 127
+- **Pending Requests:** 24
+- **Total Requested Days:** 591
 
 ## What This Demonstrates
 
-This dashboard is intended to demonstrate more than visual creation. It connects:
+This Power BI work connects:
 
-**Business question -> data model -> measure -> visual -> interpretation**
+**Business question -> data model -> DAX measure -> visual -> interpretation**
 
-That makes the Power BI work relevant to Business Analyst and Business Systems Analyst roles rather than positioning the project as a standalone data-analyst exercise.
+The objective is to demonstrate practical data analysis and reporting capability relevant to Business Analyst and Business Systems Analyst work, rather than advanced BI development.
 
-## Portfolio Dashboard Preview
+## Case Study Note
 
-![Employee Leave Management dashboard preview](POWER_BI_DASHBOARD_PREVIEW.svg)
-
-The preview above is generated from the same synthetic project dataset and represents the dashboard design and analysis intended for Power BI. Current dataset KPIs are:
-
-- **Total requests:** 180
-- **Approved:** 127
-- **Pending:** 24
-- **Total requested days:** 591
-
-It is a portfolio dashboard preview, not a screenshot exported from Power BI Desktop.
-
-## Power BI Desktop Evidence
-
-When the report is opened and rebuilt in Power BI Desktop, the portfolio can additionally include:
-
-- `POWER_BI_MODEL.png` - actual Model view
-- `POWER_BI_DASHBOARD.png` - actual report-page screenshot
-
-Keeping the preview and Desktop evidence distinct makes the project transparent and interview-defensible.
+The report was built in Power BI Desktop using the same synthetic Employee Leave Management data used for the SQL analysis. The screenshots above show the actual report page and data model created for this portfolio case study.
