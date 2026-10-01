@@ -1,13 +1,16 @@
-# Employee Leave Management Portal - QA Case Study
+# Employee Leave Management - Business Analysis, SQL, Power BI & QA Case Study
 
 ## Overview
 
-This independent QA case study demonstrates how I approach an enterprise workflow from business-rule understanding and risk analysis through test design and release assessment.
+This independent portfolio case study demonstrates how I approach an enterprise workflow from business-rule understanding and risk analysis through practical SQL investigation, Power BI reporting, test design and release assessment.
 
 The focus is on the highest-risk areas of an Employee Leave Management Portal, including leave balance accuracy, approvals, authorization, state transitions, and cancellation handling.
 
 ## Skills Demonstrated
 
+- Business & Functional Analysis
+- SQL Data Analysis
+- Power BI Data Modelling & Dashboard Design
 - Functional & End-to-End Testing
 - Test Strategy & Risk-Based Test Planning
 - Test Scenario & Test Case Design
@@ -32,6 +35,16 @@ The focus is on the highest-risk areas of an Employee Leave Management Portal, i
 - [Authorization Test Cases](07-test-cases/AUTHORIZATION_TEST_CASES.md)
 - [Test Execution Approach](08-test-execution/TEST_EXECUTION_APPROACH.md)
 - [Test Summary & Release Recommendation](10-test-summary/TEST_SUMMARY.md)
+- [SQL Analysis & Business Questions](11-data-analysis/SQL_ANALYSIS.md)
+- [Practical SQL Queries](11-data-analysis/leave_analysis.sql)
+- [Power BI Dashboard Design & Measures](12-power-bi/POWER_BI_DASHBOARD.md)
+- [Analysis Dataset](data/)
+
+## Data Analysis & Reporting
+
+The project uses four related synthetic datasets: Employees, LeaveRequests, LeaveTypes and LeaveBalances. SQL is used to investigate request status, department activity, pending requests, leave types, balances, monthly trends and business-rule/data-quality exceptions.
+
+The same model is used for the Power BI extension, with KPI cards, department and leave-type analysis, status distribution, monthly trends and interactive slicers. The Power BI documentation includes the intended relationships and DAX measures. Actual Power BI model and dashboard screenshots will be added after the report is rebuilt in Power BI Desktop.
 
 ## Test Focus
 
@@ -62,6 +75,6 @@ Employee Request → Manager Review → Approve / Reject / Return for Correction
 
 ## Case Study Note
 
-This is an independent portfolio case study created to demonstrate practical QA analysis and test-design skills.
+This is an independent portfolio case study created to demonstrate practical Business Analysis, SQL/data analysis, Power BI and Quality Assurance thinking.
 
 Business rules are simplified for the case study and do not represent the complete HR policy of any specific organization.
