@@ -1,0 +1,6 @@
+LeaveTypeID,LeaveType,PaidFlag
+1,Vacation,Y
+2,Sick,Y
+3,Personal,Y
+4,Bereavement,Y
+5,Unpaid,N
