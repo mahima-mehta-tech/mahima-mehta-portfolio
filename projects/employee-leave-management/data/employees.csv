@@ -1,0 +1,61 @@
+EmployeeID,EmployeeName,Department,ManagerID,HireDate,EmploymentStatus
+1001,Employee 1001,Engineering,1001,2025-03-04,Active
+1002,Employee 1002,Engineering,1001,2019-04-02,Active
+1003,Employee 1003,Engineering,1001,2018-04-13,Active
+1004,Employee 1004,Engineering,1001,2021-01-31,Active
+1005,Employee 1005,Engineering,1001,2020-09-30,Active
+1006,Employee 1006,Engineering,1001,2020-07-03,Active
+1007,Employee 1007,Engineering,1001,2019-07-26,Active
+1008,Employee 1008,Engineering,1001,2019-02-24,Active
+1009,Employee 1009,Engineering,1001,2025-08-03,Active
+1010,Employee 1010,Engineering,1001,2024-02-12,Active
+1011,Employee 1011,Engineering,1001,2018-12-23,Active
+1012,Employee 1012,Engineering,1001,2024-08-15,Active
+1013,Employee 1013,Engineering,1001,2022-09-25,Active
+1014,Employee 1014,Engineering,1001,2018-05-11,Active
+1015,Employee 1015,Finance,1015,2018-05-03,Active
+1016,Employee 1016,Finance,1015,2019-01-19,Active
+1017,Employee 1017,Finance,1015,2020-06-14,Active
+1018,Employee 1018,Finance,1015,2020-08-10,Active
+1019,Employee 1019,Finance,1015,2023-09-01,Active
+1020,Employee 1020,Finance,1015,2024-10-01,Active
+1021,Employee 1021,Finance,1015,2018-04-19,Active
+1022,Employee 1022,Finance,1015,2024-04-17,Active
+1023,Employee 1023,HR,1023,2020-03-25,Active
+1024,Employee 1024,HR,1023,2025-04-15,Active
+1025,Employee 1025,HR,1023,2024-02-11,Active
+1026,Employee 1026,HR,1023,2022-09-15,Active
+1027,Employee 1027,HR,1023,2020-06-21,Active
+1028,Employee 1028,HR,1023,2023-01-14,Active
+1029,Employee 1029,Operations,1029,2024-08-10,Active
+1030,Employee 1030,Operations,1029,2021-02-13,Active
+1031,Employee 1031,Operations,1029,2018-01-27,Active
+1032,Employee 1032,Operations,1029,2019-10-16,Active
+1033,Employee 1033,Operations,1029,2022-09-28,Active
+1034,Employee 1034,Operations,1029,2021-10-25,Active
+1035,Employee 1035,Operations,1029,2021-02-12,Active
+1036,Employee 1036,Operations,1029,2019-09-29,Active
+1037,Employee 1037,Operations,1029,2020-05-31,Active
+1038,Employee 1038,Operations,1029,2021-10-10,Active
+1039,Employee 1039,Sales,1039,2019-02-23,Active
+1040,Employee 1040,Sales,1039,2019-01-15,Active
+1041,Employee 1041,Sales,1039,2022-04-06,Active
+1042,Employee 1042,Sales,1039,2019-02-01,Active
+1043,Employee 1043,Sales,1039,2022-01-10,Active
+1044,Employee 1044,Sales,1039,2021-11-09,Active
+1045,Employee 1045,Sales,1039,2024-10-08,Active
+1046,Employee 1046,Sales,1039,2020-12-19,Active
+1047,Employee 1047,Sales,1039,2018-06-27,Active
+1048,Employee 1048,Sales,1039,2023-02-25,Active
+1049,Employee 1049,Sales,1039,2024-01-06,Active
+1050,Employee 1050,Sales,1039,2019-05-27,Active
+1051,Employee 1051,Customer Support,1051,2022-03-31,Active
+1052,Employee 1052,Customer Support,1051,2018-11-19,Active
+1053,Employee 1053,Customer Support,1051,2024-03-11,Active
+1054,Employee 1054,Customer Support,1051,2021-04-15,Active
+1055,Employee 1055,Customer Support,1051,2025-01-18,Active
+1056,Employee 1056,Customer Support,1051,2024-12-08,Active
+1057,Employee 1057,Customer Support,1051,2022-01-21,Active
+1058,Employee 1058,Customer Support,1051,2024-06-22,Active
+1059,Employee 1059,Customer Support,1051,2020-02-27,Active
+1060,Employee 1060,Customer Support,1051,2018-10-12,Active
