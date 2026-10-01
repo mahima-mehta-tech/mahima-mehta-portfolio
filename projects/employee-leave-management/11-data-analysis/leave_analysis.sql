@@ -1,5 +1,6 @@
 -- Employee Leave Management: practical SQL analysis
 -- SQLite-compatible queries answering business questions.
+-- Kept intentionally practical and BA-focused.
 
 -- 1. Request status distribution
 SELECT Status, COUNT(*) AS RequestCount
@@ -7,7 +8,7 @@ FROM LeaveRequests
 GROUP BY Status
 ORDER BY RequestCount DESC;
 
--- 2. Leave activity by department
+-- 2. Leave activity by department (INNER JOIN)
 SELECT e.Department,
        COUNT(lr.LeaveRequestID) AS TotalRequests,
        SUM(lr.RequestedDays) AS TotalRequestedDays
@@ -16,7 +17,7 @@ JOIN LeaveRequests lr ON e.EmployeeID = lr.EmployeeID
 GROUP BY e.Department
 ORDER BY TotalRequests DESC;
 
--- 3. Employees with no leave requests
+-- 3. Employees with no leave requests (LEFT JOIN)
 SELECT e.EmployeeID, e.EmployeeName, e.Department
 FROM Employees e
 LEFT JOIN LeaveRequests lr ON e.EmployeeID = lr.EmployeeID
@@ -32,7 +33,7 @@ GROUP BY e.EmployeeID, e.EmployeeName, e.Department
 HAVING COUNT(lr.LeaveRequestID) > 2
 ORDER BY RequestCount DESC;
 
--- 5. Leave balance categories
+-- 5. Leave balance categories (CASE)
 SELECT e.EmployeeID, e.EmployeeName, e.Department,
        lb.RemainingBalanceDays,
        CASE
@@ -64,7 +65,7 @@ WHERE lr.Status = 'Approved'
 GROUP BY lt.LeaveType
 ORDER BY ApprovedDays DESC;
 
--- 8. Monthly request trend
+-- 8. Monthly request trend (date query)
 SELECT strftime('%Y-%m', RequestDate) AS RequestMonth,
        COUNT(*) AS RequestCount,
        SUM(RequestedDays) AS RequestedDays
@@ -80,3 +81,24 @@ FROM Employees e
 JOIN LeaveBalances lb ON e.EmployeeID = lb.EmployeeID
 WHERE lb.ApprovedDaysUsed > lb.AnnualEntitlementDays
 ORDER BY lb.ApprovedDaysUsed DESC;
+
+-- 10. Employees with below-average remaining leave balance (simple subquery)
+SELECT e.EmployeeID, e.EmployeeName, e.Department,
+       lb.RemainingBalanceDays
+FROM Employees e
+JOIN LeaveBalances lb ON e.EmployeeID = lb.EmployeeID
+WHERE lb.RemainingBalanceDays < (
+    SELECT AVG(RemainingBalanceDays)
+    FROM LeaveBalances
+)
+ORDER BY lb.RemainingBalanceDays;
+
+-- 11. Employees who currently have a pending request (simple IN subquery)
+SELECT EmployeeID, EmployeeName, Department
+FROM Employees
+WHERE EmployeeID IN (
+    SELECT EmployeeID
+    FROM LeaveRequests
+    WHERE Status = 'Pending'
+)
+ORDER BY EmployeeID;
