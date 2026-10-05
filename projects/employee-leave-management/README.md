@@ -1,84 +1,69 @@
-# Employee Leave Management - Business Analysis, SQL, Power BI & QA Case Study
+# Employee Leave Management | Business Analysis, SQL & Power BI
 
-## Overview
+> Independent portfolio case study using synthetic data.
 
-This independent portfolio case study demonstrates how I approach an enterprise workflow from business-rule understanding and risk analysis through practical SQL investigation, Power BI reporting, test design and release assessment.
+## Business Problem
 
-The focus is on the highest-risk areas of an Employee Leave Management Portal, including leave balance accuracy, approvals, authorization, state transitions, and cancellation handling.
+Managers and HR need clear visibility into employee leave requests, approval status, leave balances and usage patterns. This case study shows how I translated that need into concise functional requirements and business rules, investigated the data with SQL, and built a Power BI dashboard for management reporting.
+
+## What I Did
+
+- Defined the core stakeholders, functional requirements, business rules and scope.
+- Used SQL to answer practical business questions, validate data and investigate exceptions.
+- Built a four-table Power BI data model and simple DAX measures.
+- Created an interactive dashboard to analyze requests by status, department, leave type and month.
+- Interpreted the results as business insights rather than treating SQL and Power BI as standalone technical exercises.
 
 ## Skills Demonstrated
 
-- Business & Functional Analysis
-- SQL Data Analysis
-- Power BI Data Modelling & Dashboard Design
-- Functional & End-to-End Testing
-- Test Strategy & Risk-Based Test Planning
-- Test Scenario & Test Case Design
-- Negative & Boundary Value Testing
-- State Transition Testing
-- Role-Based Access & Authorization Validation
-- Leave Balance & Data Integrity Validation
-- Smoke, Sanity & Regression Testing
-- Business Rule Validation
-- Defect & Release Risk Assessment
+**Business Analysis:** Requirements Analysis, Functional Requirements, Business Rules, Stakeholder Needs, Scope Definition  
+**Data Analysis:** SQL, Data Validation, Business-Rule / Exception Analysis  
+**Reporting:** Power BI, Data Modelling, DAX Measures, Dashboarding, Business Insights
 
 ## Key Artifacts
 
-- [Project Overview](01-project-overview/PROJECT_OVERVIEW.md)
-- [Business Rules](02-business-rules/BUSINESS_RULES.md)
-- [Test Strategy](03-test-strategy/TEST_STRATEGY.md)
-- [Risk Assessment](04-risk-assessment/RISK_ASSESSMENT.md)
-- [Role & Permission Matrix](05-roles-and-permissions/ROLE_PERMISSION_MATRIX.md)
-- [State Transition Matrix](06-state-transitions/STATE_TRANSITION_MATRIX.md)
-- [Workflow Test Cases](07-test-cases/WORKFLOW_TEST_CASES.md)
-- [Leave Balance Test Cases](07-test-cases/LEAVE_BALANCE_TEST_CASES.md)
-- [Authorization Test Cases](07-test-cases/AUTHORIZATION_TEST_CASES.md)
-- [Test Execution Approach](08-test-execution/TEST_EXECUTION_APPROACH.md)
-- [Test Summary & Release Recommendation](10-test-summary/TEST_SUMMARY.md)
-- [SQL Analysis & Business Questions](11-data-analysis/SQL_ANALYSIS.md)
-- [Practical SQL Queries](11-data-analysis/leave_analysis.sql)
-- [Power BI Dashboard, Data Model & Measures](12-power-bi/POWER_BI_DASHBOARD.md)
-- [Analysis Dataset](data/)
+- [Requirements & Business Rules](business-analysis/REQUIREMENTS_AND_RULES.md)
+- [SQL Analysis](sql/SQL_ANALYSIS.md)
+- [SQL Queries](sql/leave_analysis.sql)
+- [Power BI Dashboard & Data Model](12-power-bi/POWER_BI_DASHBOARD.md)
+- [Synthetic Dataset](data/)
 
-## Data Analysis & Reporting
+## Power BI Dashboard
 
-The project uses four related synthetic datasets: Employees, LeaveRequests, LeaveTypes and LeaveBalances.
+![Employee Leave Management Power BI dashboard](12-power-bi/POWER_BI_DASHBOARD.jpg)
 
-SQL is used for practical BA-focused investigation including joins, grouping and aggregation, leave-balance analysis, pending-request investigation, monthly date analysis, simple subqueries and business-rule/data-quality exception checks.
+The report contains four headline measures:
 
-The same four-table model is used in Power BI. The completed report contains KPI cards for total requests, approved requests, pending requests and requested days; department and leave-type analysis; status distribution; monthly trend; and Department and Status slicers.
+- **Total Requests:** 180
+- **Approved Requests:** 127
+- **Pending Requests:** 24
+- **Total Requested Days:** 591
 
-Actual Power BI Desktop screenshots of both the dashboard and the data model are included in the Power BI section.
+It also provides analysis by department, leave type, request status and month, with Department and Status slicers.
 
-## Test Focus
+## Key Business Insights
 
-Testing is intentionally risk-based.
+- **Approved requests dominate the workflow:** 127 of 180 requests are Approved, while 24 remain Pending, giving managers a clear follow-up population.
+- **Engineering and Finance show the highest request activity:** 42 and 40 requests respectively, compared with 13 in HR. This indicates where leave activity is concentrated, not necessarily higher absence rates because department sizes differ.
+- **Vacation is the most frequently requested leave type:** 67 requests, followed by Sick leave with 45.
+- **April has the highest request volume in the sample:** 30 requests. The monthly trend can help managers identify periods that may require closer capacity planning.
+- **The balance data contains exceptions:** some records show approved usage above annual entitlement. These are flagged for investigation rather than automatically treated as errors, because a BA should first confirm the relevant business rule and data context.
 
-Deeper coverage is applied to:
+## Data Model
 
-- Leave request submission
-- Leave balance calculation
-- Approval and rejection
-- Employee self-approval prevention
-- Role-based access
-- Cancellation and balance restoration
-- Critical status transitions
-- Duplicate processing prevention
+The Power BI model uses:
 
-Other leave types are covered with representative scenarios rather than exhaustive testing.
+- **Employees** - employee master data
+- **LeaveRequests** - leave transactions
+- **LeaveTypes** - leave-type reference data
+- **LeaveBalances** - employee leave balances
 
-## Workflow
+![Power BI data model](12-power-bi/POWER_BI_DATA_MODEL.jpg)
 
-The core workflow covers:
+## Tools
 
-Employee Request → Manager Review → Approve / Reject / Return for Correction → Resubmit → Cancellation where applicable.
+**SQLite / SQL | Power BI Desktop | DAX | GitHub**
 
-## Workflow Diagram
+## Scope Note
 
-![Employee Leave Management Workflow](09-visuals/LEAVE_WORKFLOW.png)
-
-## Case Study Note
-
-This is an independent portfolio case study created to demonstrate practical Business Analysis, SQL/data analysis, Power BI and Quality Assurance thinking.
-
-Business rules are simplified for the case study and do not represent the complete HR policy of any specific organization.
+This is an independent case study, not client or employer work. The data is synthetic and the requirements and business rules are simplified for demonstration purposes. The objective is to demonstrate practical Business Analysis, SQL and Power BI capability relevant to Business Analyst and Business Systems Analyst roles.
