@@ -224,7 +224,7 @@ This is an important analysis principle: **report what the data shows, but do no
 
 The report includes:
 
-- KPI cards for Total Requests, Approved Requests, Pending Requests, Total Requested Days and Approval Rate %
+- Card visuals for Total Requests, Approved Requests, Pending Requests, Total Requested Days and Approval Rate %
 - Leave Requests by Department
 - Leave Requests by Type
 - Request Status
@@ -238,13 +238,14 @@ The exception table uses the calculated column `Balance Exception` as a visual-l
 
 ![Employee Leave Management Power BI dashboard](POWER_BI_DASHBOARD.jpg)
 
-The original dashboard screenshot is retained until the final report layout is saved and a new screenshot is captured.
+The screenshot above shows the final dashboard layout used for this case study.
 
 ## Interpretation Notes
 
 - Request counts by department show **volume**, not absence rate. Department headcount would be needed before concluding that one department has a higher absence rate.
 - An exception is a record requiring investigation, not automatically a data error. Carry-forward leave, adjustments or policy rules not represented in the simplified dataset could explain the result.
 - Total Requested Days represents days **requested**, not necessarily days actually taken.
+- The September value is reported only as the recorded request volume in the dataset. Without confirming that September is a complete comparable period, the decline should not be interpreted as a sustained reduction in leave demand.
 
 ## What This Demonstrates
 
