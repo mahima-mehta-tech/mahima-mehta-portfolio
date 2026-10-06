@@ -1,36 +1,26 @@
 # SQL Analysis
 
-The SQL analysis answers practical business questions using the same synthetic data shown in the Power BI dashboard. Queries are intentionally kept at a Business Analyst / Business Systems Analyst level so they are easy to explain and relate to a business need.
+The SQL analysis uses the same synthetic Employee Leave Management data shown in the Power BI dashboard.
 
-## Business Questions Covered
+The purpose is **not to demonstrate advanced SQL development**. It is to show that SQL can be used by a Business Analyst / Business Systems Analyst to answer business questions, validate data and investigate exceptions.
 
-- Request distribution by status
-- Leave activity by department
-- Employees with no requests
-- Departments with higher request volumes
-- Longer approved Vacation or Sick requests
-- Unique departments
-- Leave-balance summary and categories
-- Pending requests requiring follow-up
-- Approved leave by type
-- Monthly request trends
-- Leave-balance exceptions
-- Employees below the average remaining balance
-- Employees with pending requests
-- Missing approval-date handling
-- Approved Vacation usage by department across three related tables
+Each section contains:
+
+**Business question → SQL query → syntax explanation → actual output**
+
+This also makes the project useful as revision material for interviews.
 
 ## SQL Concepts Demonstrated
 
-`INNER JOIN`, `LEFT JOIN`, `WHERE`, `AND`, `OR`, `IN`, `DISTINCT`, `GROUP BY`, `HAVING`, `ORDER BY`, `COUNT`, `SUM`, `AVG`, `CASE`, `COALESCE`, `NULLIF`, `IS NULL`, SQLite `strftime` date grouping, and simple subqueries.
+`SELECT`, `WHERE`, `INNER JOIN`, `LEFT JOIN`, `IS NULL`, `DISTINCT`, `GROUP BY`, `HAVING`, `ORDER BY`, `COUNT`, `SUM`, `AVG`, `MIN`, `MAX`, `CASE`, `AND/OR`.
 
-RIGHT JOIN and FULL OUTER JOIN are not forced into the project because the analysis is SQLite-based and the same business needs can be handled with the joins shown here. They remain useful concepts to understand for interviews.
+The project deliberately avoids advanced SQL such as nested subqueries, CTEs, window functions and complex date expressions because they are not necessary for the business questions in this case study.
 
-## SQL Learning Notes
+---
 
-The purpose of this section is to make each query easy to review later. For every query, focus on three things: **business question, syntax, and why the syntax was chosen**.
+## 1. Request distribution by status
 
-### 1. Request distribution by status
+**Business question:** How many requests are Approved, Pending, Rejected or Cancelled?
 
 ```SQL
 SELECT Status, COUNT(*) AS RequestCount
@@ -39,13 +29,30 @@ GROUP BY Status
 ORDER BY RequestCount DESC;
 ```
 
-- `SELECT` chooses the fields/results to return.
-- `COUNT(*)` counts rows.
-- `AS RequestCount` gives the calculated result a readable alias.
-- `GROUP BY Status` creates one group for each status.
-- `ORDER BY ... DESC` sorts from highest to lowest.
+### Syntax
 
-### 2. Leave activity by department
+- `SELECT Status` returns the request status.
+- `COUNT(*)` counts rows.
+- `AS RequestCount` gives the count a readable name.
+- `GROUP BY Status` creates one group for each status.
+- `ORDER BY ... DESC` sorts the largest count first.
+
+### Output
+
+| Status | RequestCount |
+|---|---:|
+| Approved | 127 |
+| Pending | 24 |
+| Rejected | 17 |
+| Cancelled | 12 |
+
+**Business meaning:** Most requests are Approved, while 24 are still Pending.
+
+---
+
+## 2. Leave activity by department
+
+**Business question:** Which departments have the highest request volume and requested days?
 
 ```SQL
 SELECT e.Department,
@@ -57,12 +64,32 @@ GROUP BY e.Department
 ORDER BY TotalRequests DESC;
 ```
 
-- `Employees e` and `LeaveRequests lr` use short table aliases.
-- `INNER JOIN ... ON` combines matching employee and request records using EmployeeID.
-- `COUNT` counts requests and `SUM` totals requested days.
-- `GROUP BY Department` produces one result per department.
+### Syntax
 
-### 3. Employees with no leave requests
+- `Employees e` and `LeaveRequests lr` are table aliases.
+- `INNER JOIN ... ON` connects each request to its employee using `EmployeeID`.
+- `COUNT` counts requests.
+- `SUM` totals requested days.
+- `GROUP BY e.Department` creates one result per department.
+
+### Output
+
+| Department | TotalRequests | TotalRequestedDays |
+|---|---:|---:|
+| Engineering | 42 | 133 |
+| Finance | 40 | 146 |
+| Sales | 36 | 126 |
+| Customer Support | 28 | 86 |
+| Operations | 21 | 59 |
+| HR | 13 | 41 |
+
+**Business meaning:** Engineering has the highest number of requests, while Finance has the highest total requested days. These figures show activity volume, not absence rate.
+
+---
+
+## 3. Employees with no leave requests
+
+**Business question:** Are there employees with no leave requests in the dataset?
 
 ```SQL
 SELECT e.EmployeeID, e.EmployeeName, e.Department
@@ -72,11 +99,26 @@ WHERE lr.LeaveRequestID IS NULL
 ORDER BY e.EmployeeID;
 ```
 
-- `LEFT JOIN` keeps every employee even when there is no matching request.
-- For employees with no match, request-side fields are NULL.
-- `WHERE ... IS NULL` therefore isolates employees with no leave requests.
+### Syntax
 
-### 4. Departments with more than 20 requests
+- `LEFT JOIN` keeps every employee, even if there is no matching request.
+- When no request matches, the request-side fields are `NULL`.
+- `WHERE lr.LeaveRequestID IS NULL` keeps only those unmatched employees.
+
+### Output
+
+| EmployeeID | EmployeeName | Department |
+|---:|---|---|
+| 1038 | Employee 1038 | Operations |
+| 1054 | Employee 1054 | Customer Support |
+
+**Business meaning:** Two employees have no leave requests in the sample data.
+
+---
+
+## 4. Departments with more than 20 requests
+
+**Business question:** Which departments have request volumes above 20?
 
 ```SQL
 SELECT e.Department, COUNT(*) AS RequestCount
@@ -87,30 +129,28 @@ HAVING COUNT(*) > 20
 ORDER BY RequestCount DESC;
 ```
 
-- `GROUP BY` first creates department groups.
-- `HAVING` filters the grouped/aggregated results.
-- Use `WHERE` to filter rows before grouping; use `HAVING` to filter aggregate groups after grouping.
+### Syntax
 
-### 5. Approved Vacation or Sick requests longer than 3 days
+- `GROUP BY` creates department groups.
+- `COUNT(*)` calculates the number of requests in each group.
+- `HAVING COUNT(*) > 20` filters the grouped results.
+- `WHERE` filters individual rows; `HAVING` filters grouped/aggregated results.
 
-```SQL
-SELECT lr.LeaveRequestID, e.EmployeeName, e.Department,
-       lt.LeaveType, lr.RequestedDays
-FROM LeaveRequests lr
-INNER JOIN Employees e ON lr.EmployeeID = e.EmployeeID
-INNER JOIN LeaveTypes lt ON lr.LeaveTypeID = lt.LeaveTypeID
-WHERE lr.Status = 'Approved'
-  AND lt.LeaveType IN ('Vacation', 'Sick')
-  AND lr.RequestedDays > 3
-ORDER BY lr.RequestedDays DESC;
-```
+### Output
 
-- Two `INNER JOIN` operations bring employee and leave-type information into the request analysis.
-- `WHERE` applies row-level conditions.
-- `AND` means all listed conditions must be true.
-- `IN (...)` is a concise way to match one of several allowed values.
+| Department | RequestCount |
+|---|---:|
+| Engineering | 42 |
+| Finance | 40 |
+| Sales | 36 |
+| Customer Support | 28 |
+| Operations | 21 |
 
-### 6. Unique departments
+---
+
+## 5. Unique departments
+
+**Business question:** Which departments are represented in the employee master?
 
 ```SQL
 SELECT DISTINCT Department
@@ -118,10 +158,29 @@ FROM Employees
 ORDER BY Department;
 ```
 
-- `DISTINCT` removes duplicate result values.
-- `DISTINCT` is different from a `UNIQUE` database constraint. DISTINCT affects query output; UNIQUE controls what values may be stored.
+### Syntax
 
-### 7. Average, minimum and maximum remaining balance
+- `DISTINCT` removes duplicate values from the query result.
+- `ORDER BY` sorts the department names.
+
+### Output
+
+| Department |
+|---|
+| Customer Support |
+| Engineering |
+| Finance |
+| HR |
+| Operations |
+| Sales |
+
+**Note:** `DISTINCT` affects query output. It is different from a `UNIQUE` database constraint.
+
+---
+
+## 6. Remaining leave-balance summary
+
+**Business question:** What are the average, minimum and maximum remaining balances?
 
 ```SQL
 SELECT ROUND(AVG(RemainingBalanceDays), 2) AS AvgRemainingBalance,
@@ -130,10 +189,24 @@ SELECT ROUND(AVG(RemainingBalanceDays), 2) AS AvgRemainingBalance,
 FROM LeaveBalances;
 ```
 
-- `AVG`, `MIN` and `MAX` are aggregate functions.
+### Syntax
+
+- `AVG` calculates the average.
+- `MIN` returns the lowest value.
+- `MAX` returns the highest value.
 - `ROUND(..., 2)` displays the average to two decimal places.
 
-### 8. Group remaining balances into review categories
+### Output
+
+| AvgRemainingBalance | MinRemainingBalance | MaxRemainingBalance |
+|---:|---:|---:|
+| 13.35 | 0 | 20 |
+
+---
+
+## 7. Classify remaining balances
+
+**Business question:** How can employee balances be grouped into simple review categories?
 
 ```SQL
 SELECT e.EmployeeID, e.EmployeeName, e.Department,
@@ -146,22 +219,38 @@ SELECT e.EmployeeID, e.EmployeeName, e.Department,
        END AS BalanceCategory
 FROM Employees e
 INNER JOIN LeaveBalances lb ON e.EmployeeID = lb.EmployeeID
-ORDER BY lb.RemainingBalanceDays, e.EmployeeID;
+ORDER BY e.EmployeeID;
 ```
 
-General pattern:
+### CASE syntax
 
 ```SQL
 CASE
-  WHEN condition THEN result
-  WHEN condition THEN result
-  ELSE result
+    WHEN condition THEN result
+    WHEN condition THEN result
+    ELSE result
 END
 ```
 
-SQL evaluates the WHEN conditions in order and returns the first matching category.
+SQL checks the conditions in order and returns the first matching category.
 
-### 9. Pending requests requiring follow-up
+### Sample output
+
+| EmployeeID | EmployeeName | Department | RemainingBalanceDays | BalanceCategory |
+|---:|---|---|---:|---|
+| 1001 | Employee 1001 | Engineering | 20 | Healthy Balance |
+| 1002 | Employee 1002 | Engineering | 16 | Healthy Balance |
+| 1003 | Employee 1003 | Engineering | 6 | Moderate Balance |
+| 1004 | Employee 1004 | Engineering | 19 | Healthy Balance |
+| 1005 | Employee 1005 | Engineering | 5 | Low Balance |
+
+The query returns all employee balance records; only a sample is shown here for readability.
+
+---
+
+## 8. Pending requests requiring follow-up
+
+**Business question:** Which requests are still Pending and may need manager follow-up?
 
 ```SQL
 SELECT e.EmployeeID, e.EmployeeName, e.Department,
@@ -172,9 +261,29 @@ WHERE lr.Status = 'Pending'
 ORDER BY lr.RequestDate;
 ```
 
-This combines employee and request data, then uses `WHERE` to return only pending requests.
+### Syntax
 
-### 10. Approved leave by type
+- `INNER JOIN` combines employee information with leave requests.
+- `WHERE lr.Status = 'Pending'` keeps only Pending requests.
+- `ORDER BY lr.RequestDate` places the oldest request dates first.
+
+### Sample output
+
+| EmployeeID | EmployeeName | Department | LeaveRequestID | RequestDate | RequestedDays |
+|---:|---|---|---:|---|---:|
+| 1044 | Employee 1044 | Sales | 5036 | 2026-01-16 | 6 |
+| 1005 | Employee 1005 | Engineering | 5122 | 2026-01-27 | 3 |
+| 1010 | Employee 1010 | Engineering | 5127 | 2026-02-15 | 3 |
+| 1013 | Employee 1013 | Engineering | 5044 | 2026-02-25 | 1 |
+| 1040 | Employee 1040 | Sales | 5116 | 2026-03-03 | 8 |
+
+There are 24 Pending requests in the dataset; five are shown here as a sample.
+
+---
+
+## 9. Approved leave by type
+
+**Business question:** Which leave types account for the most approved leave?
 
 ```SQL
 SELECT lt.LeaveType,
@@ -187,24 +296,28 @@ GROUP BY lt.LeaveType
 ORDER BY ApprovedDays DESC;
 ```
 
-The query first limits the rows to approved requests, then groups them by leave type and calculates both request count and requested-day total.
+### Syntax
 
-### 11. Monthly request trend
+- `INNER JOIN` connects the leave-type reference to the requests.
+- `WHERE` keeps only Approved requests.
+- `GROUP BY` creates one group for each leave type.
+- `COUNT` counts approved requests and `SUM` totals their requested days.
 
-```SQL
-SELECT strftime('%Y-%m', RequestDate) AS RequestMonth,
-       COUNT(*) AS RequestCount,
-       SUM(RequestedDays) AS RequestedDays
-FROM LeaveRequests
-GROUP BY strftime('%Y-%m', RequestDate)
-ORDER BY RequestMonth;
-```
+### Output
 
-- SQLite `strftime('%Y-%m', RequestDate)` converts a date into a year-month value for grouping.
-- The same expression is used in `SELECT` and `GROUP BY`.
-- `COUNT` and `SUM` then summarize each month.
+| LeaveType | ApprovedRequests | ApprovedDays |
+|---|---:|---:|
+| Vacation | 49 | 216 |
+| Sick | 31 | 76 |
+| Unpaid | 20 | 55 |
+| Personal | 12 | 39 |
+| Bereavement | 15 | 33 |
 
-### 12. Leave-balance exceptions
+---
+
+## 10. Leave-balance exceptions
+
+**Business question:** Which leave-balance records need investigation?
 
 ```SQL
 SELECT e.EmployeeID, e.EmployeeName, e.Department,
@@ -217,117 +330,30 @@ WHERE lb.ApprovedDaysUsed > lb.AnnualEntitlementDays
 ORDER BY lb.ApprovedDaysUsed DESC;
 ```
 
-- `INNER JOIN` adds employee details to the balance records.
-- `WHERE` defines the exception rules.
-- `OR` means a record is returned if either exception condition is true.
-- These are records for investigation, not automatically errors.
+### Syntax
 
-### 13. Employees below the average remaining balance
+- `INNER JOIN` adds employee information to the balance records.
+- `WHERE` applies the exception rule.
+- `OR` means a row is returned when either exception condition is true.
 
-```SQL
-SELECT e.EmployeeID, e.EmployeeName, e.Department,
-       lb.RemainingBalanceDays
-FROM Employees e
-INNER JOIN LeaveBalances lb ON e.EmployeeID = lb.EmployeeID
-WHERE lb.RemainingBalanceDays < (
-    SELECT AVG(RemainingBalanceDays)
-    FROM LeaveBalances
-)
-ORDER BY lb.RemainingBalanceDays;
-```
+### Output
 
-The inner query calculates one value: the overall average balance. The outer query then returns employees whose balance is below that value. This is a simple subquery.
+| EmployeeID | EmployeeName | Department | AnnualEntitlementDays | ApprovedDaysUsed | RemainingBalanceDays |
+|---:|---|---|---:|---:|---:|
+| 1016 | Employee 1016 | Finance | 20 | 33 | 0 |
+| 1019 | Employee 1019 | Finance | 20 | 27 | 0 |
 
-### 14. Employees with a pending request
+**Business meaning:** These are records requiring review, not automatically data errors. The relevant leave policy or adjustment history would need to be confirmed.
 
-```SQL
-SELECT EmployeeID, EmployeeName, Department
-FROM Employees
-WHERE EmployeeID IN (
-    SELECT EmployeeID
-    FROM LeaveRequests
-    WHERE Status = 'Pending'
-)
-ORDER BY EmployeeID;
-```
-
-The inner query produces a list of EmployeeIDs with pending requests. The outer query uses `IN` to return the corresponding employee details.
-
-### 15. Readable fallback for missing approval dates
-
-```SQL
-SELECT LeaveRequestID, EmployeeID, Status,
-       COALESCE(NULLIF(ApprovalDate, ''), 'Not yet approved') AS ApprovalStatusDate
-FROM LeaveRequests
-ORDER BY LeaveRequestID;
-```
-
-Read from the inside outward:
-
-1. `NULLIF(ApprovalDate, '')` converts an empty string to NULL.
-2. `COALESCE(value, fallback)` returns the first non-NULL value.
-3. If the approval date is missing or blank, the output becomes **Not yet approved**.
-
-
-### 16. Approved Vacation days by department
-
-**Business question:** Which departments account for the highest volume of approved Vacation days?
-
-```SQL
-SELECT e.Department,
-       COUNT(lr.LeaveRequestID) AS ApprovedVacationRequests,
-       SUM(lr.RequestedDays) AS ApprovedVacationDays
-FROM Employees e
-INNER JOIN LeaveRequests lr ON e.EmployeeID = lr.EmployeeID
-INNER JOIN LeaveTypes lt ON lr.LeaveTypeID = lt.LeaveTypeID
-WHERE lr.Status = 'Approved'
-  AND lt.LeaveType = 'Vacation'
-GROUP BY e.Department
-ORDER BY ApprovedVacationDays DESC;
-```
-
-#### How to read the syntax
-
-1. `FROM Employees e` starts with the employee table and gives it the alias `e`.
-2. The first `INNER JOIN` connects employees to their leave requests using `EmployeeID`.
-3. The second `INNER JOIN` connects each request to its leave type using `LeaveTypeID`.
-4. `WHERE lr.Status = 'Approved'` keeps only approved requests.
-5. `AND lt.LeaveType = 'Vacation'` narrows the analysis specifically to Vacation.
-6. `GROUP BY e.Department` creates one result group for each department.
-7. `COUNT(lr.LeaveRequestID)` counts approved Vacation requests in each department.
-8. `SUM(lr.RequestedDays)` totals the approved Vacation days represented by those requests.
-9. `ORDER BY ApprovedVacationDays DESC` places the department with the highest approved Vacation-day volume first.
-
-#### Result in the synthetic dataset
-
-| Department | Approved Vacation Requests | Approved Vacation Days |
-|---|---:|---:|
-| Finance | 15 | 71 |
-| Sales | 8 | 39 |
-| Customer Support | 9 | 34 |
-| Operations | 8 | 33 |
-| Engineering | 7 | 29 |
-| HR | 2 | 10 |
-
-#### Why this query is useful
-
-This is a stronger business investigation because it combines **three related tables** rather than analysing one table in isolation:
-
-`Employees -> LeaveRequests -> LeaveTypes`
-
-It answers a specific management question while still using straightforward SQL.
-
-The result shows that Finance has the highest **approved Vacation-day volume** in this dataset. It should **not** be described as the department with the highest absence rate because department headcount and other context would be required for that conclusion.
+---
 
 ## Field Meaning: Requested vs Approved vs Remaining
 
-The case study deliberately distinguishes:
+- **RequestedDays** = days submitted in a leave request.
+- **ApprovedDaysUsed** = approved days recorded as consumed against the relevant leave balance.
+- **RemainingBalanceDays** = entitlement still available after recorded usage.
 
-- **RequestedDays**: days submitted in a leave request.
-- **ApprovedDaysUsed**: approved days recorded as consumed against the relevant leave balance.
-- **RemainingBalanceDays**: entitlement still available after recorded usage.
-
-Pending and rejected requests do not reduce annual vacation entitlement in this simplified case study. An unapproved request is therefore not consumed leave, but it is clearer to describe the available entitlement as **remaining/unused balance**, rather than describing the unapproved request itself as "unused leave."
+Pending and rejected requests do not reduce annual vacation entitlement in this simplified case study. An unapproved request is therefore not consumed leave. Available/unused entitlement is represented by `RemainingBalanceDays`.
 
 ## Full Query Set
 
@@ -335,4 +361,10 @@ See [leave_analysis.sql](leave_analysis.sql).
 
 ## Why This Matters for a BA
 
-The purpose is not advanced SQL development. It demonstrates how SQL can be used to validate data, investigate exceptions, answer stakeholder questions and support reporting decisions.
+The purpose is not to look like a SQL developer. The queries demonstrate practical skills that a BA can use to:
+
+- answer stakeholder questions,
+- validate and summarize data,
+- identify records requiring follow-up,
+- investigate exceptions,
+- and support reporting and decision-making.
