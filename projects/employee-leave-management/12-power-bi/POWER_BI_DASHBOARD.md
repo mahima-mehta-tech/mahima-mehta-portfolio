@@ -165,6 +165,61 @@ In this case study, pending and rejected requests do not reduce the annual vacat
 
 Because this simplified balance table represents annual vacation entitlement, a more explicit business name could be **ApprovedVacationDaysUsed**. The source column remains `ApprovedDaysUsed`, but the case-study meaning is approved vacation usage counted against annual entitlement.
 
+## KPI and Card Visuals
+
+### What Is a KPI?
+
+**KPI** stands for **Key Performance Indicator**. A KPI is an important business metric used to monitor the performance or status of a process, activity or business area.
+
+Not every number in a report needs to be a KPI. A KPI should help the intended audience quickly understand something important and support monitoring or decision-making.
+
+For this Employee Leave Management dashboard, the top-level management metrics are:
+
+| KPI / Metric | Business meaning |
+|---|---|
+| **Total Requests** | Overall volume of leave requests |
+| **Approved Requests** | Number of requests approved |
+| **Pending Requests** | Requests still awaiting a decision or follow-up |
+| **Total Requested Days** | Total number of leave days requested |
+| **Approval Rate %** | Percentage of all requests that are approved |
+
+### What Is a Card?
+
+A **Card** is a Power BI visual used to display one important value prominently.
+
+For example:
+
+- **Approval Rate %** is the metric being monitored.
+- **70.6%** is its current value in the full synthetic dataset.
+- The **Card visual** is the box used to display that value on the dashboard.
+
+The five summary metrics are displayed as cards because management can read the key numbers immediately without needing to interpret a chart.
+
+### Card vs KPI Visual
+
+In everyday dashboard discussion, cards containing important metrics are often called **KPI cards**. In Power BI, however, **Card** and **KPI** are also distinct visual types.
+
+A **Card visual** is appropriate when the main purpose is to display a current value.
+
+A **KPI visual** is more useful when performance needs to be evaluated against a meaningful **target, goal or trend**, for example:
+
+`Actual Approval Rate = 70.6% | Target Approval Rate = 80%`
+
+This case study does not define a genuine target approval rate, so a target should not be invented merely to create a KPI visual. The dashboard therefore uses **Card visuals** for the summary metrics.
+
+### Business Interpretation
+
+An Approval Rate of **70.6%** tells us that 70.6% of requests in the full dataset are approved. By itself, it does **not** tell us whether 70.6% is good or bad.
+
+To make that judgement, management would need additional context such as:
+
+- an agreed target or policy threshold,
+- historical performance,
+- a benchmark,
+- or another valid business expectation.
+
+This is an important analysis principle: **report what the data shows, but do not label performance as good or bad without appropriate business context.**
+
 ## Dashboard
 
 The report includes:
