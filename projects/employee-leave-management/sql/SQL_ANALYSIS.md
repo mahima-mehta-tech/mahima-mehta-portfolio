@@ -18,6 +18,7 @@ The SQL analysis answers practical business questions using the same synthetic d
 - Employees below the average remaining balance
 - Employees with pending requests
 - Missing approval-date handling
+- Approved Vacation usage by department across three related tables
 
 ## SQL Concepts Demonstrated
 
@@ -266,6 +267,57 @@ Read from the inside outward:
 1. `NULLIF(ApprovalDate, '')` converts an empty string to NULL.
 2. `COALESCE(value, fallback)` returns the first non-NULL value.
 3. If the approval date is missing or blank, the output becomes **Not yet approved**.
+
+
+### 16. Approved Vacation days by department
+
+**Business question:** Which departments account for the highest volume of approved Vacation days?
+
+```SQL
+SELECT e.Department,
+       COUNT(lr.LeaveRequestID) AS ApprovedVacationRequests,
+       SUM(lr.RequestedDays) AS ApprovedVacationDays
+FROM Employees e
+INNER JOIN LeaveRequests lr ON e.EmployeeID = lr.EmployeeID
+INNER JOIN LeaveTypes lt ON lr.LeaveTypeID = lt.LeaveTypeID
+WHERE lr.Status = 'Approved'
+  AND lt.LeaveType = 'Vacation'
+GROUP BY e.Department
+ORDER BY ApprovedVacationDays DESC;
+```
+
+#### How to read the syntax
+
+1. `FROM Employees e` starts with the employee table and gives it the alias `e`.
+2. The first `INNER JOIN` connects employees to their leave requests using `EmployeeID`.
+3. The second `INNER JOIN` connects each request to its leave type using `LeaveTypeID`.
+4. `WHERE lr.Status = 'Approved'` keeps only approved requests.
+5. `AND lt.LeaveType = 'Vacation'` narrows the analysis specifically to Vacation.
+6. `GROUP BY e.Department` creates one result group for each department.
+7. `COUNT(lr.LeaveRequestID)` counts approved Vacation requests in each department.
+8. `SUM(lr.RequestedDays)` totals the approved Vacation days represented by those requests.
+9. `ORDER BY ApprovedVacationDays DESC` places the department with the highest approved Vacation-day volume first.
+
+#### Result in the synthetic dataset
+
+| Department | Approved Vacation Requests | Approved Vacation Days |
+|---|---:|---:|
+| Finance | 15 | 71 |
+| Sales | 8 | 39 |
+| Customer Support | 9 | 34 |
+| Operations | 8 | 33 |
+| Engineering | 7 | 29 |
+| HR | 2 | 10 |
+
+#### Why this query is useful
+
+This is a stronger business investigation because it combines **three related tables** rather than analysing one table in isolation:
+
+`Employees -> LeaveRequests -> LeaveTypes`
+
+It answers a specific management question while still using straightforward SQL.
+
+The result shows that Finance has the highest **approved Vacation-day volume** in this dataset. It should **not** be described as the department with the highest absence rate because department headcount and other context would be required for that conclusion.
 
 ## Field Meaning: Requested vs Approved vs Remaining
 
