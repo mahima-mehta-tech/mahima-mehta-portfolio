@@ -25,12 +25,12 @@ Managers and HR need clear visibility into employee leave requests, approval sta
 - [Requirements & Business Rules](business-analysis/REQUIREMENTS_AND_RULES.md)
 - [SQL Analysis](sql/SQL_ANALYSIS.md)
 - [SQL Queries](sql/leave_analysis.sql)
-- [Power BI Dashboard & Data Model](12-power-bi/POWER_BI_DASHBOARD.md)
+- [Power BI Dashboard & Data Model](power-bi/POWER_BI_DASHBOARD.md)
 - [Synthetic Dataset](data/)
 
 ## Power BI Dashboard
 
-![Employee Leave Management Power BI dashboard](12-power-bi/POWER_BI_DASHBOARD.jpg)
+![Employee Leave Management Power BI dashboard](power-bi/POWER_BI_DASHBOARD.jpg)
 
 The report contains five headline management metrics:
 
@@ -60,7 +60,7 @@ The Power BI model uses:
 - **LeaveTypes** - leave-type reference data
 - **LeaveBalances** - employee leave balances
 
-![Power BI data model](12-power-bi/POWER_BI_DATA_MODEL.jpg)
+![Power BI data model](power-bi/POWER_BI_DATA_MODEL.jpg)
 
 ## Tools
 
