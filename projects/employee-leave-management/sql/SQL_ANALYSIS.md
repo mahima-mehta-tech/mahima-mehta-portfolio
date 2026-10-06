@@ -14,9 +14,9 @@ This avoids two extremes: a beginner-style list of isolated SQL commands and unn
 
 Across the analysis, the queries use:
 
-`SELECT`, `WHERE`, `AND/OR`, `INNER JOIN`, `LEFT JOIN`, `IS NULL`, `GROUP BY`, `ORDER BY`, `COUNT`, `SUM`, `AVG`, `MIN`, and `MAX`.
+`SELECT`, `WHERE`, `AND/OR`, `IN`, `INNER JOIN`, `LEFT JOIN`, `IS NULL`, `GROUP BY`, `ORDER BY`, `COUNT`, `SUM`, `AVG`, `MIN`, `MAX`, and one simple subquery.
 
-The strongest query combines three related tables to answer a specific management question. Advanced constructs such as CTEs, window functions, nested subqueries and complex date expressions are intentionally excluded because they are not needed for this case study.
+The strongest query combines three related tables to answer a specific management question. One simple subquery is included to demonstrate practical working knowledge without adding unnecessary complexity. CTEs, window functions, multi-level nested subqueries and complex date expressions are intentionally excluded.
 
 ---
 
@@ -292,6 +292,62 @@ This is intentionally the most detailed query in the case study, but it still us
 
 ---
 
+
+## 9. Employees with a Pending request using a subquery
+
+**Business question:** Which employees currently have at least one Pending leave request?
+
+```SQL
+SELECT EmployeeID, EmployeeName, Department
+FROM Employees
+WHERE EmployeeID IN (
+    SELECT EmployeeID
+    FROM LeaveRequests
+    WHERE Status = 'Pending'
+)
+ORDER BY EmployeeID;
+```
+
+### How to understand the subquery
+
+Read it from the **inside out**.
+
+The inner query runs first:
+
+```SQL
+SELECT EmployeeID
+FROM LeaveRequests
+WHERE Status = 'Pending'
+```
+
+It produces the EmployeeIDs associated with Pending requests.
+
+The outer query then runs:
+
+```SQL
+SELECT EmployeeID, EmployeeName, Department
+FROM Employees
+WHERE EmployeeID IN (...)
+```
+
+`IN` checks whether each employee's ID appears in the list returned by the inner query.
+
+### Sample output
+
+| EmployeeID | EmployeeName | Department |
+|---:|---|---|
+| 1002 | Employee 1002 | Engineering |
+| 1005 | Employee 1005 | Engineering |
+| 1010 | Employee 1010 | Engineering |
+| 1012 | Employee 1012 | Engineering |
+| 1013 | Employee 1013 | Engineering |
+
+The full result contains **20 employees** with at least one Pending request. The dataset contains **24 Pending requests**, so the employee count is lower because an employee can have more than one request.
+
+**Business interpretation:** Query 3 gives the detailed Pending requests for follow-up. This subquery answers a slightly different question by identifying the employees associated with those requests. It demonstrates a subquery without adding unnecessary SQL complexity.
+
+---
+
 ## Field Meaning: Requested vs Approved vs Remaining
 
 - **RequestedDays** = days submitted in a leave request.
@@ -304,7 +360,7 @@ Pending and rejected requests do not reduce annual vacation entitlement in this 
 
 The strength of the analysis is not the number of SQL functions used. It is the progression of the investigation:
 
-**summary → segmentation → actionable follow-up → cross-table analysis → missing activity → balance analysis → exception investigation**
+**summary → segmentation → actionable follow-up → cross-table analysis → missing activity → balance analysis → exception investigation → simple subquery**
 
 The queries are tied to business questions, use related tables where needed, show actual outputs, and distinguish what the data supports from what would require additional context.
 
