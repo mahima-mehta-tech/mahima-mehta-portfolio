@@ -32,14 +32,15 @@ Managers and HR need clear visibility into employee leave requests, approval sta
 
 ![Employee Leave Management Power BI dashboard](12-power-bi/POWER_BI_DASHBOARD.jpg)
 
-The report contains four headline measures:
+The report contains five headline management metrics:
 
 - **Total Requests:** 180
 - **Approved Requests:** 127
 - **Pending Requests:** 24
 - **Total Requested Days:** 591
+- **Approval Rate:** 70.6%
 
-It also provides analysis by department, leave type, request status and month, with Department and Status slicers.
+It also provides analysis by department, leave type, request status and month, with Department and Status slicers, plus a focused table of leave-balance exceptions requiring review.
 
 ## Key Business Insights
 
@@ -47,7 +48,8 @@ It also provides analysis by department, leave type, request status and month, w
 - **Engineering and Finance show the highest request activity:** 42 and 40 requests respectively, compared with 13 in HR. This indicates where leave activity is concentrated, not necessarily higher absence rates because department sizes differ.
 - **Vacation is the most frequently requested leave type:** 67 requests, followed by Sick leave with 45.
 - **April has the highest request volume in the sample:** 30 requests. The monthly trend can help managers identify periods that may require closer capacity planning.
-- **The balance data contains exceptions:** some records show approved usage above annual entitlement. These are flagged for investigation rather than automatically treated as errors, because a BA should first confirm the relevant business rule and data context.
+- **Approval Rate is 70.6%:** this describes the proportion of requests approved, but it is not labelled good or bad because the case study does not define a target or benchmark.
+- **Two leave-balance records require review:** Employees 1016 and 1019 show approved usage above annual entitlement. They are flagged for investigation rather than automatically treated as errors, because a BA should first confirm the relevant business rule and data context.
 
 ## Data Model
 
