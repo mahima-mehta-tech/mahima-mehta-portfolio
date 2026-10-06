@@ -128,3 +128,15 @@ SELECT LeaveRequestID, EmployeeID, Status,
        COALESCE(NULLIF(ApprovalDate, ''), 'Not yet approved') AS ApprovalStatusDate
 FROM LeaveRequests
 ORDER BY LeaveRequestID;
+
+-- 16. Which departments account for the most approved Vacation days? (3-table business investigation)
+SELECT e.Department,
+       COUNT(lr.LeaveRequestID) AS ApprovedVacationRequests,
+       SUM(lr.RequestedDays) AS ApprovedVacationDays
+FROM Employees e
+INNER JOIN LeaveRequests lr ON e.EmployeeID = lr.EmployeeID
+INNER JOIN LeaveTypes lt ON lr.LeaveTypeID = lt.LeaveTypeID
+WHERE lr.Status = 'Approved'
+  AND lt.LeaveType = 'Vacation'
+GROUP BY e.Department
+ORDER BY ApprovedVacationDays DESC;
