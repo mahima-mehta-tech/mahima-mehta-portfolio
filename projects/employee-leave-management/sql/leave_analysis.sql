@@ -69,3 +69,13 @@ WHERE lr.Status = 'Approved'
   AND lt.LeaveType = 'Vacation'
 GROUP BY e.Department
 ORDER BY ApprovedVacationDays DESC;
+
+-- 9. Which employees currently have at least one pending request? (simple subquery)
+SELECT EmployeeID, EmployeeName, Department
+FROM Employees
+WHERE EmployeeID IN (
+    SELECT EmployeeID
+    FROM LeaveRequests
+    WHERE Status = 'Pending'
+)
+ORDER BY EmployeeID;
