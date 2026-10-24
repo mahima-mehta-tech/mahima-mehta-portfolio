@@ -68,7 +68,7 @@ Checks whether approval is required (`M2`) **and** still pending (`N2`). The out
 - `COUNTA(range)`: count non-empty cells.
 - `TODAY()`: current date, recalculated by Excel.
 
-**Definition to note:** The dashboard's Pending Approval metric checks **work-order status** (`K`). The approval follow-up formula checks **approval required and approval status** (`M` and `N`). These are related but different measures and may diverge as data changes.
+**Known definition mismatch (not yet corrected in the workbook):** The dashboard's Pending Approval metric checks **work-order status** (`K`), whereas the approval follow-up formula checks **approval required and approval status** (`M` and `N`). The proposed business definition is Approval Required = Yes AND Approval Status = Pending. See [defect register](FLEET_QA_DEFECT_REGISTER.md) and [revised BRD draft](FLEET_BRD_REVISED_DRAFT.md).
 
 ## Power Automate Desktop — rule walkthrough
 
@@ -82,7 +82,7 @@ Checks whether approval is required (`M2`) **and** still pending (`N2`). The out
 
 **Why it matters:** The two IF checks are inside the loop but independent, so a pending approval is counted whether or not the work order is overdue. The flow uses Excel's overdue flag rather than recalculating dates.
 
-**Verified sample run:** 10 work orders, 7 overdue, 1 pending approval.
+**Previously documented sample run:** 10 work orders, 7 overdue, 1 pending approval. This is historical evidence only; the revised approval definition and added rows have not been retested.
 
 ## Scope and potential refinements
 
