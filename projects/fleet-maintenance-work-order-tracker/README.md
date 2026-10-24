@@ -23,8 +23,10 @@ The solution combines an Excel-based tracker, Power Query transformations, a sum
 - Desktop automation that reads Excel records, evaluates overdue and approval conditions, and generates a summary report
 
 ## Documentation
-- [Business Requirements Document](Fleet_Maintenance_BRD.pdf)
-- [UAT Test Cases](Fleet_Maintenance_UAT_TestCases.pdf)
+- [Original Business Requirements Document (PDF)](Fleet_Maintenance_BRD.pdf)
+- [Revised BRD Draft — pending implementation verification](FLEET_BRD_REVISED_DRAFT.md)
+- [Original UAT Test Cases (PDF)](Fleet_Maintenance_UAT_TestCases.pdf)
+- [Nine-Case UAT Execution Checklist — not yet executed](FLEET_UAT_EXECUTION_CHECKLIST.md)
 - [QA Defect Register and Retest Plan](FLEET_QA_DEFECT_REGISTER.md)
 - [Excel Work Order Tracker](Fleet_Maintenance_Work_Order_Tracker_Portfolio.xlsx)
 - [Formula and Business Logic Guide](Fleet_Maintenance_Formula_and_Business_Logic_Guide.md)
