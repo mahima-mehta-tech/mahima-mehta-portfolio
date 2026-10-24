@@ -1,6 +1,6 @@
 # Business Analyst Portfolio | Mahima Mehta
 
-I'm Mahima Mehta, a Calgary-based technology professional with enterprise experience in business and functional analysis, quality assurance, and Agile delivery. [Connect with me on LinkedIn](https://www.linkedin.com/in/mahima-mehta/).
+I'm Mahima Mehta, a Calgary-based technology professional with enterprise experience in business and functional analysis, quality assurance, and Agile delivery. My LinkedIn profile is available upon request.
 
 This portfolio showcases practical Business Analysis, data analysis, reporting, and process automation skills.
 
