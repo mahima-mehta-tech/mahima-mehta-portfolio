@@ -25,6 +25,7 @@ The solution combines an Excel-based tracker, Power Query transformations, a sum
 ## Documentation
 - [Business Requirements Document](Fleet_Maintenance_BRD.pdf)
 - [UAT Test Cases](Fleet_Maintenance_UAT_TestCases.pdf)
+- [QA Defect Register and Retest Plan](FLEET_QA_DEFECT_REGISTER.md)
 - [Excel Work Order Tracker](Fleet_Maintenance_Work_Order_Tracker_Portfolio.xlsx)
 - [Formula and Business Logic Guide](Fleet_Maintenance_Formula_and_Business_Logic_Guide.md)
   
