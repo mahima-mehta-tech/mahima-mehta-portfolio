@@ -2,7 +2,7 @@
 
 **Project:** Employee Leave Management (synthetic portfolio case study)  
 **Review date:** 25 October 2026  
-**Status:** All nine documented SQL analysis queries independently reconciled against four user-supplied CSV datasets using SQLite. Power BI Desktop refresh and interactive visuals not independently rerun.
+**Status:** All nine documented SQL analysis queries independently reconciled against the four source CSV datasets using SQLite. All four uploaded CSV files are confirmed byte-for-byte identical to the files published on GitHub. Power BI Desktop refresh and interactive visuals not independently rerun.
 
 ## Source datasets validated
 
@@ -13,7 +13,7 @@
 | `leave_types(1).csv` | 5 | Leave-type lookup |
 | `leave_balances(1).csv` | 60 | Entitlement and usage |
 
-The uploaded CSVs were read locally and loaded as SQLite tables `Employees`, `LeaveRequests`, `LeaveTypes`, and `LeaveBalances`. The files' uploaded names include `(1)`; these are **not** asserted to be the filenames stored in GitHub. They were not automatically published to the repository.
+The uploaded CSVs were read locally and loaded as SQLite tables `Employees`, `LeaveRequests`, `LeaveTypes`, and `LeaveBalances`. The uploaded filenames include `(1)`, while the published files are named `employees.csv`, `leave_requests.csv`, `leave_types.csv`, and `leave_balances.csv` under [`data/`](../data/). All four pairs were confirmed byte-for-byte identical using Git blob SHA-1 checks.
 
 ## Independent SQL reconciliation
 
@@ -37,8 +37,8 @@ BR-05 describes the **intended approval control**; BR-08 describes **exception r
 
 ## Remaining scope limits
 
-- Power BI report refresh, slicer behavior, relationships, and visual filtering have **not** been independently tested in Power BI Desktop. The existing dashboard/model screenshots were verified present in GitHub, but screenshots are not a substitute for a live refresh.
-- The four CSVs were supplied as chat attachments and tested locally. Their exact GitHub storage paths were not confirmed; the README's `data/` link does not by itself prove the four downloadable datasets are present.
+- Power BI report refresh, slicer behavior, relationships, and visual filtering have **not** been independently tested in Power BI Desktop. The existing dashboard/model screenshots were verified present in GitHub, but screenshots are not a substitute for a live refresh. A `.pbix` file has not been supplied in this conversation, and no report file was verified at the three common candidate paths checked in `power-bi/`; this is not an exhaustive repository-wide search.
+- All four CSVs are confirmed published under `data/` with exact content matches to the uploaded datasets. No CSV publication work remains.
 - This is synthetic data and a reporting case study, not a deployed HR workflow or formal business-user UAT.
 
 ## Related evidence
