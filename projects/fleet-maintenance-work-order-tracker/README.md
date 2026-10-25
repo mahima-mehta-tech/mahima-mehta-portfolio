@@ -48,24 +48,41 @@ The latest main workbook, revised BRD and final UAT report are available below. 
 
 **File naming note:** The revised BRD was uploaded as `Fleet_BRD_Final.pdf`; this is the version 2.0 BRD, not the historical BRD.
 
-## Historical Screenshots
-The screenshots below were captured from the original 10-record prototype and should not be mistaken for current 13/14-record UAT evidence.
+## Current Project Screenshots
 
-### Excel Dashboard
-![Historical Excel Dashboard](screenshots/04_excel_dashboard.png)
+The images below document the **13-record main-workbook baseline**, including the corrected approval-action metric. The overdue count is a snapshot as of 25 October 2026 and may change with the report date.
 
-### PAD Workflow
-![Historical PAD Workflow](screenshots/01_automation_excel_and_conditions.png)
+### 1. Work Order Register
+All 13 simulated work orders, including the approval-required and approval-status fields.
 
-### PAD Reporting
-![Historical PAD Reporting](screenshots/02_automation_reporting_actions.png)
+![Work order register with 13 records](screenshots/01_work_orders_register.png)
 
-### Generated Report
-![Historical Report](screenshots/03_generated_summary_report.png)
+### 2. Excel Summary Dashboard
+Operational KPIs, status breakdown and chart. **Approvals Requiring Action (2)** is distinct from **Pending Approval status (1)**.
 
-### Historical Successful Automation Test
-Original test: 10 work orders / 7 overdue / 1 pending.
-![Historical Automation Test](screenshots/05_automation_successful_test.png)
+![Excel dashboard with 13 work orders](screenshots/02_summary_dashboard.png)
+
+### 3. PAD Execution and Results
+The PAD run uses the final workbook path and displays **13 total / 8 overdue / 2 approval actions pending**.
+
+![Power Automate Desktop execution result](screenshots/03_pad_execution_result.png)
+
+### 4. PAD Excel Setup and Dynamic Row Detection
+Column-A first-free-row detection, adjustment to the last populated row, and reading through column T.
+
+![PAD Excel setup and dynamic range](screenshots/04_pad_excel_setup.png)
+
+### 5. PAD Conditional Counting Logic
+Independent overdue check and nested **Approval Required = Yes** plus **Approval Status = Pending** conditions.
+
+![PAD conditional logic](screenshots/05_pad_conditional_logic.png)
+
+### 6. PAD Reporting Actions
+Popup summary and local text-file output actions.
+
+![PAD reporting actions](screenshots/06_pad_reporting_actions.png)
+
+**Historical evidence:** The earlier screenshots (original 10-record baseline) remain in the `screenshots` directory for traceability but are no longer used as the primary project gallery.
 
 ## Limitations
 Synthetic data, local desktop execution, no deployed Power Apps application, no cloud approval workflow, no production integrations, and no formal user sign-off. PAD's column-A method assumes contiguous work-order IDs. Excel summary formulas use a finite supported range; automatic expansion beyond that range and performance at scale were not tested.
