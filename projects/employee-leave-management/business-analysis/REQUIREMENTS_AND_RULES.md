@@ -25,7 +25,7 @@ Managers and HR need a consistent way to track employee leave requests, approval
 - **BR-02:** Only an authorized manager can approve or reject a direct report's request.
 - **BR-03:** Employees cannot approve their own leave requests.
 - **BR-04:** Pending or rejected requests do not reduce the annual vacation balance.
-- **BR-05:** Approved vacation usage must not produce a negative remaining annual balance.
+- **BR-05:** The intended workflow should prevent approval of vacation usage that exceeds available entitlement unless an authorized policy exception or adjustment applies. In the synthetic reporting dataset, records with usage above entitlement are flagged under BR-08 for investigation; a displayed zero remaining balance does not establish that the usage was valid.
 - **BR-06:** Cancelled requests are excluded from approved-leave totals.
 - **BR-07:** Leave types are handled separately so non-vacation leave does not incorrectly reduce annual vacation balance.
 - **BR-08:** Data exceptions, such as approved vacation usage exceeding annual entitlement, are flagged for investigation rather than automatically treated as valid.
