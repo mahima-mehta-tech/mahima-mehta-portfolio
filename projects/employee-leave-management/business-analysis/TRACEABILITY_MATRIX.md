@@ -17,5 +17,8 @@ This matrix links the **documented** business requirements to business rules and
 - [SQL analysis](../sql/SQL_ANALYSIS.md)
 - [Power BI report](../power-bi/POWER_BI_DASHBOARD.md)
 
+## Validation evidence
+- [Data Validation & Evidence Status](DATA_VALIDATION_STATUS.md) records arithmetic cross-checks and the remaining source-data / Power BI verification work.
+
 ## Coverage limitations
 This is a portfolio traceability exercise, not a production UAT sign-off. The case study demonstrates analytical checks against synthetic data; it does not include a deployed leave-request workflow.
