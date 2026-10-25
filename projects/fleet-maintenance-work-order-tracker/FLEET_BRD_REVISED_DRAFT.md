@@ -1,77 +1,36 @@
-# Fleet Maintenance — Business Requirements Document (Revised Draft)
+# Fleet Maintenance — Revised Business Requirements and Acceptance Criteria
 
-**Project:** Fleet Maintenance Work Order & Approval Tracker  
-**Type:** Independent portfolio case study using simulated data  
-**Status:** Proposed requirements baseline; workbook implementation and UAT sign-off pending
+**Type:** Independent simulated portfolio case study  
+**Status:** Requirements implemented and locally tested for the documented scenarios; not formal stakeholder sign-off.
 
-## 1. Business context and problem
-Maintenance supervisors need consistent visibility into work orders, overdue maintenance, priorities, approval follow-ups and estimated cost. Fragmented tracking can make follow-up and reporting difficult.
+## Business need
+Maintenance coordinators need a consistent work-order register and visibility into overdue work, approvals awaiting action, and estimated cost.
 
-## 2. Business objectives and success criteria
-| Objective | Proposed measurable acceptance criterion |
-|---|---|
-| Visibility | Every valid work order appears in a single register and summary dashboard |
-| Overdue monitoring | Dashboard overdue count agrees with record-level due dates and completion status |
-| Approval follow-up | Dashboard pending-approval count agrees with the approved business definition and automation |
-| Cost accuracy | Total estimated cost includes newly added work orders, not just the original sample |
-| Traceability | Each KPI can be traced to a source column, business rule and validation test |
+## Scope
+**Included:** Excel work-order register, Power Query cleaned dataset, Summary dashboard, PivotTables, PAD popup and local text report.  
+**Excluded:** production integrations, live work orders, email alerts, cloud approvals, multi-user access and deployment.
 
-## 3. Stakeholders
-- **Maintenance supervisor:** reviews work order status, overdue work and priority
-- **Approver / operations manager:** reviews work orders requiring approval
-- **Maintenance coordinator:** maintains work-order data and follows up on exceptions
-- **Finance / operations analyst:** reviews estimated cost totals
-- **Business analyst / QA tester:** clarifies requirements, tests calculations and records defects
+## Functional requirements
 
-These are proposed roles for a simulated project, not actual interviewed stakeholders.
-
-## 4. Scope
-**In scope:** work-order register, due dates, priorities, statuses, approval indicators, estimated costs, dashboard KPIs and desktop reporting.
-
-**Out of scope:** deployed cloud approval workflows, integrations with production fleet systems, purchasing and payment authorization, real-time notifications and production access control.
-
-## 5. Functional requirements
-| ID | Business requirement | Acceptance criterion |
+| ID | Requirement | Acceptance criterion / evidence |
 |---|---|---|
-| FR-01 | Maintenance coordinators can record and review work orders with unique IDs, issue type, priority, assignee, status, due date and estimated cost. | All valid sample work orders are represented in the register. |
-| FR-02 | Supervisors can identify overdue work orders in a single view. | An unfinished work order with a due date before today is flagged overdue; completed/closed work is excluded. |
-| FR-03 | Supervisors can see work-order totals and counts by status and priority. | Dashboard totals reconcile with the underlying work-order register. |
-| FR-04 | Approvers can identify work orders requiring approval that remain pending. | A record counts as pending approval when **Approval Required = Yes** AND **Approval Status = Pending**, regardless of overdue status. |
-| FR-05 | Operations and finance can see total estimated cost across all tracked work orders. | Adding a work order after the original ten rows increases the total by its estimated cost. |
-| FR-06 | Supervisors can receive a summary of overdue work and approval follow-ups. | Report counts match the same definitions used by the dashboard. |
-| FR-07 | Users can identify missing or invalid source values for follow-up. | Missing IDs, due dates or approval values are flagged or explicitly documented as limitations. |
+| FR-01 | Record equipment, issue, priority, assignee, status, dates and cost | Valid simulated work orders appear in Excel register; main sample has 13 |
+| FR-02 | Record whether approval is required and its status | Both approval fields available per record |
+| FR-03 | Summarize volumes, status, overdue work and estimated cost | Main Summary shows 13 records / CAD 13,760; UAT copy 14 / CAD 13,960 |
+| FR-04 | Prepare reporting data using Power Query | UAT copy refreshed and includes WO-QA-1014 in `Cleaned_Work_Orders` |
+| FR-05 | Count overdue work and pending approval actions independently | PAD main run 8 overdue and 2 pending; UAT copy zero scenarios verified |
+| FR-06 | Display and save a local work-order summary | PAD popup and text report confirmed at 13 / 8 / 2 |
+| FR-07 | Include newly appended work orders without manually changing PAD read range | New UAT row 15 detected; PAD reads 14 records |
 
-## 6. Business rules
-| Rule | Definition |
-|---|---|
-| BR-01 | Overdue = due date earlier than the evaluation date and work-order status neither Completed nor Closed. |
-| BR-02 | Pending approval requiring action = Approval Required is Yes and Approval Status is Pending. |
-| BR-03 | A pending approval is counted even when its work order is not overdue. |
-| BR-04 | Total estimated cost is the sum of estimated costs for all valid work orders in the supported data range. |
-| BR-05 | Open work excludes Completed and Closed statuses. |
-| BR-06 | Invalid or blank due dates require separate handling; they should not silently be treated as valid overdue dates. |
+## Business rules
+- **Overdue:** PAD counts records where the workbook's `Overdue?` column is `Yes`. The workbook's overdue calculation is date-dependent and excludes completed/closed work.
+- **Approval requiring action:** `Approval Required = Yes` AND `Approval Status = Pending`, independent of overdue status. A record with `Approval Required = No` and `Approval Status = Pending` is excluded.
+- **Estimated cost:** Sum numeric estimated costs in the supported Excel range. The demonstrated formulas cover rows 2:200; unlimited expansion is not claimed.
+- **New record detection:** PAD uses the first free row in Work Order ID column A, minus one. This assumes IDs are contiguous with no blank gaps.
 
-## 7. Solution approach (implementation, not business requirements)
-The portfolio prototype uses Microsoft Excel for the work-order register and dashboard, Power Query for preparation, and Power Automate Desktop for local reporting. Implementation choices may change without changing the business requirements.
+## Validation and limitations
+- **Main workbook:** 13 work orders, 8 overdue, 2 approval actions pending, CAD 13,760 estimated cost.
+- **Separate UAT copy:** zero-overdue and zero-pending scenarios; appended WO-QA-1014; 14 records and CAD 13,960 after Refresh All, reconciled between Summary and estimated-cost PivotTable.
+- No production performance test, live workflow, formal stakeholder interviews or business-user sign-off.
 
-**Proposed Excel formula for pending approvals**
-```excel
-=COUNTIFS('Work Orders'!M2:M200,"Yes",'Work Orders'!N2:N200,"Pending")
-```
-**Interim estimated-cost formula**
-```excel
-=SUM('Work Orders'!L2:L200)
-```
-A structured Excel Table is preferable for future expansion, after confirming the actual table and field names.
-
-**Automation alignment:** the desktop flow should count pending approval only when both Approval Required = Yes and Approval Status = Pending, if BR-02 is the accepted definition.
-
-## 8. Assumptions and open questions
-- Is every Pending approval status meaningful only when approval is required? BR-02 adopts the stricter *action required* definition.
-- Are blank due dates allowed?
-- Is estimated cost stored as numeric currency for every record?
-- How should cancelled work orders be handled?
-- Are records after row 200 expected? If yes, a structured Excel Table is required.
-
-## 9. Validation and sign-off
-See [QA Defect Register](FLEET_QA_DEFECT_REGISTER.md) and [UAT Execution Checklist](FLEET_UAT_EXECUTION_CHECKLIST.md). **No sign-off is claimed** until the workbook, dashboard and automation are retested and actual results are recorded.
+The original BRD PDF in the repository documents the earlier 10-record baseline and should be replaced by the revised PDF before publication.
