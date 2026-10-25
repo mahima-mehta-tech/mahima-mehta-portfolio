@@ -2,7 +2,7 @@
 
 **Updated:** 25 October 2026  
 **Project:** simulated portfolio case study  
-**Status:** Local PAD and 14-record reporting UAT checks completed; **Final workbook and PDFs uploaded to draft PR; historical screenshots retained and explicitly labeled. Merge review pending**.
+**Status:** Local PAD and 14-record reporting UAT checks completed; final workbook, PDFs and six current screenshots published on `main` via pull request #1. Historical evidence remains explicitly identified.
 
 ## Tested environments
 
@@ -48,5 +48,6 @@ These are simulated local checks, not formal business-user sign-off. Historical 
 - **DEF-01:** Pending approval definition aligned between Summary and PAD. Main count = 2; exclusion scenario exercised.
 - **DEF-02:** Estimated cost range expanded; main Summary CAD 13,760. New UAT row CAD 200 included, with UAT Summary and PivotTable CAD 13,960.
 
-## Publication gate
-The draft GitHub branch now includes `Fleet_Maintenance_Work_Order_Tracker.xlsx`, `Fleet_BRD_Final.pdf` (revised BRD version 2.0), and `Fleet_Maintenance_UAT_Final.pdf` (version 2.1). The Formula and Business Logic Guide has been corrected. The five existing screenshots are historical 10-record evidence and are labeled as such in the README; updated 13/14-record screenshot files have not been added. Review this evidence boundary before merging.
+## Publication status
+
+Pull request #1 was merged into `main` on 25 October 2026 (squash merge `255c6161ac40303bf75bd0e5ee0faa606762bb9c`). The final workbook `Fleet_Maintenance_Work_Order_Tracker.xlsx`, BRD v2.0 (`Fleet_BRD_Final.pdf`), UAT v2.1 (`Fleet_Maintenance_UAT_Final.pdf`), and six current screenshots are published and linked in the project README. The workbook KPI **Approvals Requiring Action** is distinct from the status **Pending Approval**. Historical 10-record evidence is retained for traceability and should not be used as the current baseline.
