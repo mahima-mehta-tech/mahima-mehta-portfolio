@@ -30,7 +30,7 @@ Managers and HR need clear visibility into employee leave requests, approval sta
 - [SQL Analysis](sql/SQL_ANALYSIS.md)
 - [SQL Queries](sql/leave_analysis.sql)
 - [Power BI Dashboard & Data Model](power-bi/POWER_BI_DASHBOARD.md)
-- [Synthetic Dataset](data/) — source-file names and SQL reproducibility still require independent verification
+- [Synthetic Dataset](data/): source-file names and SQL reproducibility still require independent verification
 
 ## Power BI Dashboard
 
