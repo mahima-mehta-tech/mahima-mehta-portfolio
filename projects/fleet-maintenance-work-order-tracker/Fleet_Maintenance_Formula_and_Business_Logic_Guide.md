@@ -51,8 +51,8 @@ Checks whether approval is required (`M2`) **and** still pending (`N2`). The out
 | Open | `=COUNTIFS('Work Orders'!K2:K200,"<>Closed",'Work Orders'!K2:K200,"<>Completed",'Work Orders'!A2:A200,"<>")` | IDs with unfinished status |
 | High priority | `=COUNTIF('Work Orders'!F2:F200,"High")` | High-priority records |
 | Overdue | `=COUNTIF('Work Orders'!R2:R200,"Yes")` | Overdue flags |
-| Pending Approval | `=COUNTIF('Work Orders'!K2:K200,"Pending Approval")` | Work-order status named Pending Approval |
-| Estimated cost | `=SUM('Work Orders'!L2:L11)` | Total estimated cost for sample rows |
+| Pending Approval | `=COUNTIFS('Work Orders'!M2:M200,"Yes",'Work Orders'!N2:N200,"Pending")` | Approvals requiring action (distinct from work-order status) |
+| Estimated cost | `=SUM('Work Orders'!L2:L200)` | Estimated cost for supported rows |
 | Report date | `=TODAY()` | Current calculation date |
 | High priority & overdue | `=COUNTIFS('Work Orders'!F2:F200,"High",'Work Orders'!R2:R200,"Yes")` | Both conditions true |
 | Engine repair cost | `=SUMIF('Work Orders'!D2:D200,"Engine",'Work Orders'!L2:L200)` | Cost for Engine issues |
@@ -68,22 +68,22 @@ Checks whether approval is required (`M2`) **and** still pending (`N2`). The out
 - `COUNTA(range)`: count non-empty cells.
 - `TODAY()`: current date, recalculated by Excel.
 
-**Definition to note:** The dashboard's Pending Approval metric checks **work-order status** (`K`). The approval follow-up formula checks **approval required and approval status** (`M` and `N`). These are related but different measures and may diverge as data changes.
+**Definition resolved for this simulated project:** The approval-action KPI uses both columns M and N. A separate status distribution can still count `Work Order Status = Pending Approval`; the two measures are not interchangeable. The cost formula is limited to rows 2:200. See the [defect register](FLEET_QA_DEFECT_REGISTER.md).
 
 ## Power Automate Desktop — rule walkthrough
 
 1. Open the local workbook and select `Work Orders`.
-2. Read the work-order range into `ExcelData`, using the header row as column names.
-3. Set `OverdueCount = 0` and `PendingApprovalCount = 0`.
+2. Find the first free row in Work Order ID column A, subtract one, then read `A1:T%FirstFreeRowOnColumn%` into `ExcelData` using row 1 as headers. This assumes contiguous populated IDs.
+3. Initialize `TotalWorkOrders`, `OverdueCount`, and `PendingApprovalCount` to zero.
 4. For each `CurrentItem` in `ExcelData`:
-   - IF `CurrentItem['Overdue?'] = 'Yes'`, increment `OverdueCount`.
-   - Independently, IF `CurrentItem['Approval Status'] = 'Pending'`, increment `PendingApprovalCount`.
+   - If Work Order ID is nonempty, increment `TotalWorkOrders` and evaluate the following conditions.\n   - IF `CurrentItem['Overdue?'] = 'Yes'`, increment `OverdueCount`.
+   - Independently, IF `CurrentItem['Approval Required'] = 'Yes'` AND `CurrentItem['Approval Status'] = 'Pending'`, increment `PendingApprovalCount`.
 5. Display the summary and write it to a local text file.
 
 **Why it matters:** The two IF checks are inside the loop but independent, so a pending approval is counted whether or not the work order is overdue. The flow uses Excel's overdue flag rather than recalculating dates.
 
-**Verified sample run:** 10 work orders, 7 overdue, 1 pending approval.
+**Verified local main run:** 13 work orders, 8 overdue, 2 approval actions pending; popup and saved report checked. **Separate UAT copy:** 14 work orders, 0 overdue, 0 pending; Power Query, dashboard and cost PivotTable reconciled after refresh. Historical 10 / 7 / 1 screenshots remain in the repository and are labeled historical.
 
 ## Scope and potential refinements
 
-This is a simulated portfolio project, not a production deployment. It uses Power Automate Desktop for local reporting, not a deployed Power Apps or cloud approval workflow. Potential improvements include blank-date validation, expandable Excel Table references, and aligning approval KPI definitions.
+This is a simulated portfolio project, not a production deployment. It uses Power Automate Desktop for local reporting, not a deployed Power Apps or cloud approval workflow. Potential improvements include blank-date validation, fully expandable structured references, and tests for gaps in Work Order IDs and larger datasets.
