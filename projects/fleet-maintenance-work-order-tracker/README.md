@@ -32,19 +32,21 @@ An independent Business Analysis and QA portfolio case study using simulated mai
 - **BA/QA:** business rules, BRD, traceability, test scenarios, defect and retest documentation
 
 ## Documentation and Artifacts
-The latest main workbook, revised BRD and final UAT report are available below. Historical artifacts are retained for comparison; do not confuse them with the final tested baseline.
+The latest main workbook, revised BRD and final UAT report are available below. Historical artifacts are listed separately for traceability and are not part of the current tested baseline.
 
 - **[Revised BRD — final PDF](Fleet_BRD_Final.pdf)** — Version 2.0, corrected approval rule and tested scope
 - **[Final UAT report — PDF](Fleet_Maintenance_UAT_Final.pdf)** — Version 2.1, nine recorded scenarios
 - **[Final main Excel workbook](Fleet_Maintenance_Work_Order_Tracker.xlsx)** — 13-record main dataset
-- [Historical BRD PDF](Fleet_Maintenance_BRD.pdf) — original 10-record baseline
-- [Historical UAT PDF](Fleet_Maintenance_UAT_TestCases.pdf) — original 10-record baseline
 - [Revised Requirements and Acceptance Criteria](FLEET_BRD_REVISED_DRAFT.md)
 - [UAT Execution Record](FLEET_UAT_EXECUTION_CHECKLIST.md)
 - [QA Defect Register](FLEET_QA_DEFECT_REGISTER.md)
 - [Verification and Release Status](FLEET_VALIDATION_AND_RELEASE_STATUS.md)
-- [Historical Excel workbook](Fleet_Maintenance_Work_Order_Tracker_Portfolio.xlsx) — older prototype
-- [Formula and Business Logic Guide](Fleet_Maintenance_Formula_and_Business_Logic_Guide.md) — historical guide; reconcile with the revised approval rule before release
+- [Formula and Business Logic Guide](Fleet_Maintenance_Formula_and_Business_Logic_Guide.md) — corrected current approval-action rule and formula explanations
+
+### Archived prototype artifacts (not current deliverables)
+- [Original BRD PDF](Fleet_Maintenance_BRD.pdf) — historical 10-record baseline
+- [Original UAT PDF](Fleet_Maintenance_UAT_TestCases.pdf) — historical 10-record baseline
+- [Original Excel workbook](Fleet_Maintenance_Work_Order_Tracker_Portfolio.xlsx) — historical prototype
 
 **File naming note:** The revised BRD was uploaded as `Fleet_BRD_Final.pdf`; this is the version 2.0 BRD, not the historical BRD.
 
