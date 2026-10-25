@@ -51,7 +51,7 @@ Checks whether approval is required (`M2`) **and** still pending (`N2`). The out
 | Open | `=COUNTIFS('Work Orders'!K2:K200,"<>Closed",'Work Orders'!K2:K200,"<>Completed",'Work Orders'!A2:A200,"<>")` | IDs with unfinished status |
 | High priority | `=COUNTIF('Work Orders'!F2:F200,"High")` | High-priority records |
 | Overdue | `=COUNTIF('Work Orders'!R2:R200,"Yes")` | Overdue flags |
-| Pending Approval | `=COUNTIFS('Work Orders'!M2:M200,"Yes",'Work Orders'!N2:N200,"Pending")` | Approvals requiring action (distinct from work-order status) |
+| Approvals Requiring Action | `=COUNTIFS('Work Orders'!M2:M200,"Yes",'Work Orders'!N2:N200,"Pending")` | Approvals requiring action (distinct from work-order status) |
 | Estimated cost | `=SUM('Work Orders'!L2:L200)` | Estimated cost for supported rows |
 | Report date | `=TODAY()` | Current calculation date |
 | High priority & overdue | `=COUNTIFS('Work Orders'!F2:F200,"High",'Work Orders'!R2:R200,"Yes")` | Both conditions true |
@@ -76,7 +76,8 @@ Checks whether approval is required (`M2`) **and** still pending (`N2`). The out
 2. Find the first free row in Work Order ID column A, subtract one, then read `A1:T%FirstFreeRowOnColumn%` into `ExcelData` using row 1 as headers. This assumes contiguous populated IDs.
 3. Initialize `TotalWorkOrders`, `OverdueCount`, and `PendingApprovalCount` to zero.
 4. For each `CurrentItem` in `ExcelData`:
-   - If Work Order ID is nonempty, increment `TotalWorkOrders` and evaluate the following conditions.\n   - IF `CurrentItem['Overdue?'] = 'Yes'`, increment `OverdueCount`.
+   - If Work Order ID is nonempty, increment `TotalWorkOrders` and evaluate the following conditions.
+   - IF `CurrentItem['Overdue?'] = 'Yes'`, increment `OverdueCount`.
    - Independently, IF `CurrentItem['Approval Required'] = 'Yes'` AND `CurrentItem['Approval Status'] = 'Pending'`, increment `PendingApprovalCount`.
 5. Display the summary and write it to a local text file.
 
