@@ -3,11 +3,11 @@
 **Project:** Simulated Fleet Maintenance Work Order Tracker  
 **Purpose:** Explain the Excel calculations and desktop automation rules used for monitoring maintenance work.
 
-## Work Orders — row-level calculations
+## Work Orders: row-level calculations
 
 Examples use row 2; formulas are filled down for other work orders.
 
-### Assignee type — XLOOKUP
+### Assignee type: XLOOKUP
 ```excel
 =XLOOKUP(H2,Assignee_Lookup!$A$2:$A$7,Assignee_Lookup!$B$2:$B$7,"Not Found")
 ```
@@ -17,7 +17,7 @@ Examples use row 2; formulas are filled down for other work orders.
 
 **Why it matters:** Provides consistent assignee categories for reporting and cost analysis.
 
-### Ageing — IF and TODAY
+### Ageing: IF and TODAY
 ```excel
 =IF(P2<>"",P2-G2,TODAY()-G2)
 ```
@@ -27,7 +27,7 @@ Examples use row 2; formulas are filled down for other work orders.
 
 **Why it matters:** Measures elapsed time from reporting; it is **not** the number of days past the due date.
 
-### Overdue flag — IF and AND
+### Overdue flag: IF and AND
 ```excel
 =IF(AND(O2<TODAY(),K2<>"Completed",K2<>"Closed"),"Yes","No")
 ```
@@ -37,13 +37,13 @@ Examples use row 2; formulas are filled down for other work orders.
 
 **Why it matters:** Supports overdue reporting and follow-up prioritization. Blank due-date handling could be improved in a future version.
 
-### Approval action — IF and AND
+### Approval action: IF and AND
 ```excel
 =IF(AND(M2="Yes",N2="Pending"),"Approval Follow-up","No Approval Action")
 ```
 Checks whether approval is required (`M2`) **and** still pending (`N2`). The output identifies records needing follow-up.
 
-## Summary dashboard — key formulas
+## Summary dashboard: key formulas
 
 | Metric | Formula | Interpretation |
 |---|---|---|
@@ -70,7 +70,7 @@ Checks whether approval is required (`M2`) **and** still pending (`N2`). The out
 
 **Definition resolved for this simulated project:** The approval-action KPI uses both columns M and N. A separate status distribution can still count `Work Order Status = Pending Approval`; the two measures are not interchangeable. The cost formula is limited to rows 2:200. See the [defect register](FLEET_QA_DEFECT_REGISTER.md).
 
-## Power Automate Desktop — rule walkthrough
+## Power Automate Desktop: rule walkthrough
 
 1. Open the local workbook and select `Work Orders`.
 2. Find the first free row in Work Order ID column A, subtract one, then read `A1:T%FirstFreeRowOnColumn%` into `ExcelData` using row 1 as headers. This assumes contiguous populated IDs.
