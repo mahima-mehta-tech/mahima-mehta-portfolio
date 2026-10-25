@@ -1,8 +1,8 @@
-# Employee Leave Approval — Current and Future State Process Maps
+# Employee Leave Approval: Current and Future State Process Maps
 
 These are **illustrative conceptual workflows** for the synthetic case study, not observed processes at a real employer. The current state represents a plausible manual baseline; the future state represents the requirements in [REQUIREMENTS_AND_RULES.md](REQUIREMENTS_AND_RULES.md).
 
-## Illustrative current state — manual approval
+## Illustrative current state: manual approval
 
 ```mermaid
 flowchart TD
@@ -17,7 +17,7 @@ flowchart TD
 
 **Potential pain points (hypotheses):** duplicate entry, inconsistent status updates, delayed reporting, limited visibility into remaining balances.
 
-## Proposed future state — controlled leave workflow
+## Proposed future state: controlled leave workflow
 
 ```mermaid
 flowchart TD
