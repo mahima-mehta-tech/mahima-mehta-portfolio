@@ -1,4 +1,4 @@
-# Fleet Maintenance — Verification and Release Status
+# Fleet Maintenance: Verification and Release Status
 
 **Updated:** 25 October 2026  
 **Project:** simulated portfolio case study  
