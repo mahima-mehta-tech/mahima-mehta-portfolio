@@ -1,65 +1,52 @@
 # Fleet Maintenance — Verification and Release Status
 
-**Review date:** 23 October 2026 (portfolio simulation)  
-**Source:** Excel workbook saved after desktop **Data > Refresh All**, `Fleet_Tracker_Repair_Download_v2(1).xlsx`.  
-**Status:** **Excel reporting reconciled; Power Automate Desktop UAT not yet completed. Do not label the entire project fully tested.**
+**Updated:** 25 October 2026  
+**Project:** simulated portfolio case study  
+**Status:** Local PAD and 14-record reporting UAT checks completed; **GitHub artifact publication and cross-file reconciliation still pending**.
 
-## Verified Excel results
+## Tested environments
 
-| Measure | Refreshed result | Evidence / rule |
-|---|---:|---|
-| Total work orders | 13 | Summary B4, all 13 work-order records |
-| Open work orders | 11 | Summary B5 |
-| High priority | 3 | Summary B6 |
-| Overdue | 8 | Summary B7; date-dependent, will change with TODAY() |
-| Approval actions pending | 2 | Summary B8: Approval Required = Yes **and** Approval Status = Pending |
-| Total estimated cost | CAD 13,760 | Summary B9, includes CAD 1,050 across three added QA records |
-| Work-order status = Pending Approval | 1 | Separate status distribution metric (Summary E7), **not** the approval-action KPI |
+| Environment | Total | Overdue | Approval actions pending | Cost |
+|---|---:|---:|---:|---:|
+| Main repaired workbook | 13 | 8 | 2 | CAD 13,760 |
+| UAT test copy, after new work order | 14 | 0 | 0 | CAD 13,960 |
 
-The original dataset had 10 records and CAD 12,710 estimated cost. Three **synthetic** QA records add CAD 350, CAD 500, and CAD 200. Pivot cache shows 13 records; three PivotTable definitions and the Power Query connection remain in the refreshed file. Both source tables extend through the 13 records.
+The main PAD popup and saved text report were user-confirmed at **13 / 8 / 2**. Date-sensitive overdue results are snapshots. The test copy was intentionally modified for zero-exception tests; it must not replace the main workbook.
 
-**Important:** The `Ageing (Days)` values on the added rows are calculated by formula. Verify their number formatting as *Number* in Excel if displayed as dates. A date-sensitive overdue count is only a snapshot, not a fixed acceptance target.
+## Business rules
+- Approval action pending = `Approval Required = Yes` AND `Approval Status = Pending`. The original 10-record BRD used a broader rule, which was revised for this simulated case study.
+- Overdue is evaluated from the workbook's `Overdue?` field; the date-sensitive calculation must be checked at runtime.
+- The status category `Pending Approval` is distinct from the approval-action KPI.
 
-## Business rule decision
+## Test results
 
-Original BRD: `Approval Status = Pending`.  
-Revised BRD / dashboard: `Approval Required = Yes AND Approval Status = Pending`.
-
-The revised definition is a **proposed change to the original requirement**, not a previously approved requirement. The dashboard uses it. The PAD flow must be updated to use both conditions, or the business rule must be formally reverted across all artifacts. A record with Approval Required = No and Approval Status = Pending is deliberately excluded from the approval-action count.
-
-## Defect register
-
-| Defect | Original issue | Fix / evidence | Status |
+| Original UAT ID | Scenario | Latest evidence | Status |
 |---|---|---|---|
-| DEF-01 | Dashboard counted Work Order Status = Pending Approval, not approval-action fields | B8 uses COUNTIFS on Approval Required and Approval Status; refreshed workbook shows 2 | **Excel retest supported; PAD retest pending** |
-| DEF-02 | Estimated cost SUM(L2:L11) excluded new rows | B9 uses SUM(L2:L200); 13 records total CAD 13,760 and cost PivotTable reconciles | **Excel retest supported** |
+| UAT-01 | Read work orders | Main PAD reads 13; UAT copy reads 14 after new record | Pass |
+| UAT-02 | Overdue count | Main PAD 8, zero-overdue UAT copy 0 | Pass |
+| UAT-03 | Pending approvals | Main PAD 2; zero-pending UAT copy 0 | Pass |
+| UAT-04 | Display summary | Main popup 13 / 8 / 2; UAT copy 14 / 0 / 0 | Pass |
+| UAT-05 | Write report | Main saved text report user-confirmed 13 / 8 / 2 | Pass |
+| UAT-06 | Independent conditional checks | Approval-required Yes/Pending and No/Pending test cases; separate counters | Pass for tested cases |
+| UAT-07 | Dashboard comparison | UAT copy: 14 records, Power Query includes WO-QA-1014, Summary and cost PivotTable both CAD 13,960 | Pass for tested scenario |
+| UAT-08 | Zero-exception cases | UAT copy 13 / 0 / 2 and 13 / 0 / 0 | Pass |
+| UAT-09 | Additional records | UAT copy new row 15 detected by PAD; 14 records read without editing end row | Pass |
 
-## Nine original UAT scenarios
+These are simulated local checks, not formal business-user sign-off. Historical 10-record results (10 / 7 / 1) remain historical and are not presented as the current baseline.
 
-| ID | Historical test result on 10-record data | Current 13-record/PAD status |
-|---|---|---|
-| UAT-01 | Pass: read 10 | **Not rerun in PAD**: expect 13 |
-| UAT-02 | Pass: overdue 7 | **Not rerun in PAD**: compare to current date-sensitive Excel overdue result |
-| UAT-03 | Pass: pending 1 | **Not rerun in PAD**: expect 2 under revised approval-action definition |
-| UAT-04 | Pass: display 10/7/1 | **Not rerun in PAD**: reconcile updated display |
-| UAT-05 | Pass: report 10/7/1 | **Not rerun in PAD**: verify new saved report |
-| UAT-06 | IF structure checked; edge case not run | **Not run**: test non-overdue approval pending |
-| UAT-07 | Visual check only | **Partial**: Excel metrics reconciled, PAD output not compared |
-| UAT-08 | Not run | **Not run**: zero-overdue and zero-pending cases |
-| UAT-09 | Not run | **Partial**: Excel includes 13; PAD import/report not retested |
+## PAD dynamic row implementation
+1. Launch Excel and activate `Work Orders`.
+2. Use **Get first free row on column** for column A.
+3. Decrease that value by 1 to get the last populated row.
+4. Read columns A:T, from row 1 through that row, with headers.
+5. For each nonempty Work Order ID, increment total and evaluate overdue and approval-required/pending conditions independently.
+6. Display popup and write local text report.
 
-**Do not change the historical five Pass results to current Pass.** Retest requires actual flow execution and dated screenshots/report output.
+**Limitations:** Column A must be contiguous; large-scale performance, missing IDs within the register, and workbook formula ranges beyond row 200 were not tested.
 
-## Desktop PAD execution checklist (requires local environment)
+## Defect retests
+- **DEF-01:** Pending approval definition aligned between Summary and PAD. Main count = 2; exclusion scenario exercised.
+- **DEF-02:** Estimated cost range expanded; main Summary CAD 13,760. New UAT row CAD 200 included, with UAT Summary and PivotTable CAD 13,960.
 
-1. Save a copy of the refreshed workbook and record the execution date/time.
-2. Inspect the flow's pending count: apply **both** Approval Required = Yes and Approval Status = Pending; do not filter on Work Order Status for approval-action KPI.
-3. Run PAD against the 13-record workbook. Capture imported count, overdue count, pending count, on-screen summary, and saved report. Compare overdue to Excel **at run time**.
-4. Test WO-QA-1011 (non-overdue + pending approval), WO-QA-1012 (additional cost row), and WO-QA-1013 (Pending but Approval Required = No).
-5. Run isolated zero-overdue and zero-pending scenarios on a test copy. Confirm no false-positive exceptions.
-6. Save screenshots, report output, date/time, observed/expected values, and actual Pass/Fail per UAT ID.
-7. Only then change this release status to **UAT complete** and publish revised artifacts.
-
-## Publication note
-
-The documentation in this draft PR is review material, not evidence of a completed desktop automation run. Do not merge or claim end-to-end test completion until the checklist has actual results. The revised workbook binary is not yet uploaded to this PR.
+## Publication gate
+The draft GitHub branch still contains historical binary files and screenshots. The latest repaired workbook and revised/final PDFs are saved locally but have **not been uploaded to this PR**. Confirm that their filenames, linked docs, formulas, screenshots, and final UAT wording agree before merge.
