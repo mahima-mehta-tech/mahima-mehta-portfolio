@@ -2,40 +2,48 @@
 
 **Project:** Employee Leave Management (synthetic portfolio case study)  
 **Review date:** 25 October 2026  
-**Evidence status:** Documentation cross-check completed; source-data SQL rerun and Power BI recalculation not independently executed.
+**Status:** All nine documented SQL analysis queries independently reconciled against four user-supplied CSV datasets using SQLite. Power BI Desktop refresh and interactive visuals not independently rerun.
 
-## Documented baseline and arithmetic cross-checks
+## Source datasets validated
 
-| Check | Documented result | Review |
+| Source file provided | Rows | Role |
 |---|---:|---|
-| Total requests | 180 | Status counts 127 + 24 + 17 + 12 = 180 |
-| Approved | 127 | 127 / 180 = 70.6% rounded |
-| Pending | 24 | SQL query 1 and README agree |
-| Total requested days | 591 | Department totals 133 + 146 + 126 + 86 + 59 + 41 = 591 |
-| Department request counts | 180 | 42 + 40 + 36 + 28 + 21 + 13 = 180 |
-| Approved requests by leave type | 127 | 49 + 31 + 20 + 12 + 15 = 127 |
-| Approved days by leave type | 419 | 216 + 76 + 55 + 39 + 33 = 419; this is not total requested days |
-| Approved vacation days by department | 216 | 71 + 39 + 34 + 33 + 29 + 10 = 216 |
-| Leave balance exceptions | 2 | Employee IDs 1016 and 1019 in documented SQL output |
+| `employees(1).csv` | 60 | Employee master |
+| `leave_requests(1).csv` | 180 | Leave transactions |
+| `leave_types(1).csv` | 5 | Leave-type lookup |
+| `leave_balances(1).csv` | 60 | Entitlement and usage |
 
-These checks reconcile **figures reported in the existing documentation**. They do not prove the queries were executed against the uploaded dataset.
+The uploaded CSVs were read locally and loaded as SQLite tables `Employees`, `LeaveRequests`, `LeaveTypes`, and `LeaveBalances`. The files' uploaded names include `(1)`; these are **not** asserted to be the filenames stored in GitHub. They were not automatically published to the repository.
 
-## Evidence available in repository
+## Independent SQL reconciliation
+
+| Query | Check | Verified result | Outcome |
+|---|---|---|---|
+| 1 | Request status distribution | Approved 127; Pending 24; Rejected 17; Cancelled 12 | Pass |
+| 2 | Department request counts and requested days | Engineering 42/133; Finance 40/146; Sales 36/126; Customer Support 28/86; Operations 21/59; HR 13/41 | Pass |
+| 3 | Pending follow-up list | 24 rows; first five sample rows agree with SQL analysis | Pass |
+| 4 | Approved leave by type | Vacation 49/216; Sick 31/76; Unpaid 20/55; Personal 12/39; Bereavement 15/33 | Pass |
+| 5 | Employees without requests | IDs 1038 and 1054 | Pass |
+| 6 | Remaining balance summary | Average 13.35; minimum 0; maximum 20 | Pass |
+| 7 | Leave balance exceptions | IDs 1016 (33 used/20 entitlement) and 1019 (27 used/20 entitlement), both 0 displayed remaining | Pass |
+| 8 | Approved vacation by department | Finance 15/71; Sales 8/39; Customer Support 9/34; Operations 8/33; Engineering 7/29; HR 2/10 | Pass |
+| 9 | Employees with at least one pending request | 20 unique employees; first five match documented sample | Pass |
+
+**Other reconciliations:** 180 total requests; 591 requested days; approval rate 127/180 = 70.6% (rounded); approved vacation days by department sum to 216. There are no duplicate full rows in any CSV, no duplicate leave request IDs, no unmatched request-to-employee or request-to-leave-type foreign keys, no nonpositive requested-day counts, and no start dates later than end dates. All 127 Approved and 17 Rejected records have an approval date; all 24 Pending and 12 Cancelled records have no approval date. Every recorded approval date is on or after the request date.
+
+## Business-rule interpretation
+
+BR-05 describes the **intended approval control**; BR-08 describes **exception reporting**. The two synthetic balance records exceed annual entitlement but show zero remaining balance, consistent with a floor-at-zero reporting calculation. They require investigation and do not demonstrate that an actual leave-approval workflow enforced the entitlement rule.
+
+## Remaining scope limits
+
+- Power BI report refresh, slicer behavior, relationships, and visual filtering have **not** been independently tested in Power BI Desktop. The existing dashboard/model screenshots were verified present in GitHub, but screenshots are not a substitute for a live refresh.
+- The four CSVs were supplied as chat attachments and tested locally. Their exact GitHub storage paths were not confirmed; the README's `data/` link does not by itself prove the four downloadable datasets are present.
+- This is synthetic data and a reporting case study, not a deployed HR workflow or formal business-user UAT.
+
+## Related evidence
 
 - [SQL query script](../sql/leave_analysis.sql) and [documented outputs](../sql/SQL_ANALYSIS.md)
-- [Power BI report description and DAX](../power-bi/POWER_BI_DASHBOARD.md)
-- Dashboard and data-model screenshots referenced from the Power BI documentation (both image files verified present)
-- [Requirements and business rules](REQUIREMENTS_AND_RULES.md), [traceability](TRACEABILITY_MATRIX.md), and [proposed acceptance criteria](USER_STORIES_AND_ACCEPTANCE_CRITERIA.md)
-
-## Outstanding independent validation
-
-1. Locate and inspect the actual synthetic source CSV files under `data/`; the expected filenames `Employees.csv`, `LeaveRequests.csv`, `LeaveTypes.csv`, and `LeaveBalances.csv` were not found at those exact paths during this review. The directory may use different names.
-2. Run `sql/leave_analysis.sql` against the source tables and compare each result to `SQL_ANALYSIS.md`.
-3. Open the Power BI report in Desktop, refresh it against the same dataset, and verify card values, relationships, slicers, and exception filtering. The available screenshots and DAX documentation are not equivalent to executing the report.
-4. Confirm that each linked source-data artifact is downloadable and sufficient for reproduction.
-
-## Business rule and scope boundary
-
-BR-05 describes the **intended approval control**; BR-08 describes **exception reporting**. Two synthetic records show approved usage above annual entitlement while the reported remaining balance is zero. These are flagged for investigation, not asserted to be valid approvals or proof that a negative-balance prevention workflow was executed.
-
-No deployed leave-approval application or formal business-user UAT is claimed. The workflow stories and acceptance criteria are specifications; the SQL and Power BI artifacts demonstrate reporting and analytical scenarios.
+- [Power BI dashboard and DAX](../power-bi/POWER_BI_DASHBOARD.md)
+- [Requirements and business rules](REQUIREMENTS_AND_RULES.md)
+- [Traceability matrix](TRACEABILITY_MATRIX.md)
