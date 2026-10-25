@@ -2,7 +2,7 @@
 
 **Updated:** 25 October 2026  
 **Project:** simulated portfolio case study  
-**Status:** Local PAD and 14-record reporting UAT checks completed; **GitHub artifact publication and cross-file reconciliation still pending**.
+**Status:** Local PAD and 14-record reporting UAT checks completed; **Final workbook and PDFs uploaded to draft PR; historical screenshots retained and explicitly labeled. Merge review pending**.
 
 ## Tested environments
 
@@ -49,4 +49,4 @@ These are simulated local checks, not formal business-user sign-off. Historical 
 - **DEF-02:** Estimated cost range expanded; main Summary CAD 13,760. New UAT row CAD 200 included, with UAT Summary and PivotTable CAD 13,960.
 
 ## Publication gate
-The draft GitHub branch still contains historical binary files and screenshots. The latest repaired workbook and revised/final PDFs are saved locally but have **not been uploaded to this PR**. Confirm that their filenames, linked docs, formulas, screenshots, and final UAT wording agree before merge.
+The draft GitHub branch now includes `Fleet_Maintenance_Work_Order_Tracker.xlsx`, `Fleet_BRD_Final.pdf` (revised BRD version 2.0), and `Fleet_Maintenance_UAT_Final.pdf` (version 2.1). The Formula and Business Logic Guide has been corrected. The five existing screenshots are historical 10-record evidence and are labeled as such in the README; updated 13/14-record screenshot files have not been added. Review this evidence boundary before merging.
