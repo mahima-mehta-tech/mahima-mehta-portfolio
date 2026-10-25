@@ -1,25 +1,27 @@
-# Fleet Maintenance — Nine-Case UAT Execution Checklist
+# Fleet Maintenance — UAT Execution Record (Original Nine Cases)
 
-**Status:** Prepared for execution. This checklist does not replace or retrospectively alter the original PDF's actual execution record. Test IDs here are a proposed mapping pending reconciliation with the nine original cases.
+**Updated:** 25 October 2026  
+**Test basis:** Original nine-case UAT PDF plus subsequent local PAD and Excel UAT runs.  
+**Environments:** Main workbook (13 records); separate UAT copy (13 records for zero cases, 14 after adding WO-QA-1014).  
+**Scope:** Simulated local tests, not formal business-user acceptance sign-off.
 
-| Case | Scenario | Expected result | Execution |
+| ID | Original test case | Actual evidence | Result |
 |---|---|---|---|
-| UAT-01 | Work-order register with valid sample records | All work orders included once; no missing IDs | Not executed in this update |
-| UAT-02 | Overdue, unfinished order | Flag = Yes; overdue KPI includes order | Not executed in this update |
-| UAT-03 | Completed or closed order with past due date | Flag = No; excluded from overdue KPI | Not executed in this update |
-| UAT-04 | Non-overdue order requiring approval with status Pending | Included in pending-approval KPI and automation regardless of overdue flag | Not executed in this update |
-| UAT-05 | Approval Required = No and Approval Status = Pending | Excluded from *approval action required* KPI under BR-02 | Not executed in this update |
-| UAT-06 | New work order added after row 11 with estimated cost | Total estimated cost increases by exactly the new cost | Not executed in this update |
-| UAT-07 | Status and priority dashboard totals | KPI and distribution reconcile to source records | Not executed in this update |
-| UAT-08 | Desktop automation overdue and pending-approval counts | Counts match BR-01 and BR-02, and dashboard | Not executed in this update |
-| UAT-09 | Invalid/blank due date and missing approval fields | Exception handling follows agreed validation rule; no false positive | Not executed in this update |
+| UAT-01 | Read work orders | PAD main 13 records; new-record UAT copy 14 | Pass |
+| UAT-02 | Overdue count | Main 8; zero-overdue copy 0 | Pass |
+| UAT-03 | Pending approval count | Main 2 under revised rule; zero-pending copy 0 | Pass |
+| UAT-04 | Display summary | Main 13 / 8 / 2; new-record copy 14 / 0 / 0 | Pass |
+| UAT-05 | Write report | User verified saved main text report 13 / 8 / 2 | Pass |
+| UAT-06 | Independent IF checks | Separate overdue and approval conditions, including Approval Required = No / Pending exclusion | Pass for tested cases |
+| UAT-07 | Dashboard comparison | After Refresh All: UAT copy 14 records, Power Query includes WO-QA-1014; Summary and cost PivotTable CAD 13,960 | Pass for tested scenario |
+| UAT-08 | Zero-exception cases | UAT copy runs 13 / 0 / 2 and 13 / 0 / 0 | Pass |
+| UAT-09 | Additional records | UAT copy row 15 read dynamically; PAD total 14 | Pass |
 
-## Execution evidence template
-For each test record: execution date, tester, input work-order ID, preconditions, expected result, actual result, Pass/Fail/Blocked, screenshot or workbook cell reference, linked defect ID and retest result.
+## Test evidence and boundaries
+- Main PAD popup and saved text report were checked at 13 / 8 / 2.
+- UAT copy was deliberately modified for negative/zero scenarios; its results are not the main workbook baseline.
+- A copied row initially had a duplicate ID; it was corrected to `WO-QA-1014` before the reporting refresh and reconciliation.
+- The UAT-copy dashboard reported 14 work orders, 0 overdue, 0 pending approval actions, and CAD 13,960 estimated cost. The cost PivotTable grand total matched.
+- Earlier repository screenshots show the original 10-record run and should be labeled historical until replaced with current screenshots.
 
-## Test data to add
-- An unfinished order with due date in the future, Approval Required = Yes, Approval Status = Pending.
-- A record beyond row 11 with known estimated cost, e.g. CAD 500.
-- An order with Approval Required = No, Approval Status = Pending to test the stricter action-required definition.
-
-**Do not overwrite existing evidence or mark these cases Passed without performing the checks in the actual workbook and, for UAT-08, Power Automate Desktop.**
+**Remaining limitations:** No production sign-off, no large-volume testing, and no verified handling of gaps in Work Order ID column A. The UAT PDF containing the final local record has not yet been uploaded to GitHub.
