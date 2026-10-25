@@ -25,11 +25,12 @@ Managers and HR need clear visibility into employee leave requests, approval sta
 - [Requirements & Business Rules](business-analysis/REQUIREMENTS_AND_RULES.md)
 - [Current and Future State Process Maps](business-analysis/PROCESS_MAPS.md)
 - [Requirements Traceability Matrix](business-analysis/TRACEABILITY_MATRIX.md)
+- [Data Validation & Evidence Status](business-analysis/DATA_VALIDATION_STATUS.md)
 - [User Stories & Acceptance Criteria](business-analysis/USER_STORIES_AND_ACCEPTANCE_CRITERIA.md)
 - [SQL Analysis](sql/SQL_ANALYSIS.md)
 - [SQL Queries](sql/leave_analysis.sql)
 - [Power BI Dashboard & Data Model](power-bi/POWER_BI_DASHBOARD.md)
-- [Synthetic Dataset](data/)
+- [Synthetic Dataset](data/) — source-file names and SQL reproducibility still require independent verification
 
 ## Power BI Dashboard
 
