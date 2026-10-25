@@ -32,18 +32,21 @@ An independent Business Analysis and QA portfolio case study using simulated mai
 - **BA/QA:** business rules, BRD, traceability, test scenarios, defect and retest documentation
 
 ## Documentation and Artifacts
-The repository currently contains historical PDF artifacts and an older workbook. **Updated local binary files have been prepared but are not yet uploaded to this draft branch.** Do not treat the older binaries as the final tested version.
+The latest main workbook, revised BRD and final UAT report are available below. Historical artifacts are retained for comparison; do not confuse them with the final tested baseline.
 
-- [Historical BRD PDF](Fleet_Maintenance_BRD.pdf) — original 10-record baseline, superseded by the revised local BRD
-- [Historical UAT PDF](Fleet_Maintenance_UAT_TestCases.pdf) — original execution baseline, superseded by the final local UAT report
+- **[Revised BRD — final PDF](Fleet_BRD_Final.pdf)** — Version 2.0, corrected approval rule and tested scope
+- **[Final UAT report — PDF](Fleet_Maintenance_UAT_Final.pdf)** — Version 2.1, nine recorded scenarios
+- **[Final main Excel workbook](Fleet_Maintenance_Work_Order_Tracker.xlsx)** — 13-record main dataset
+- [Historical BRD PDF](Fleet_Maintenance_BRD.pdf) — original 10-record baseline
+- [Historical UAT PDF](Fleet_Maintenance_UAT_TestCases.pdf) — original 10-record baseline
 - [Revised Requirements and Acceptance Criteria](FLEET_BRD_REVISED_DRAFT.md)
 - [UAT Execution Record](FLEET_UAT_EXECUTION_CHECKLIST.md)
 - [QA Defect Register](FLEET_QA_DEFECT_REGISTER.md)
 - [Verification and Release Status](FLEET_VALIDATION_AND_RELEASE_STATUS.md)
-- [Historical Excel workbook](Fleet_Maintenance_Work_Order_Tracker_Portfolio.xlsx) — **not the latest repaired workbook**
+- [Historical Excel workbook](Fleet_Maintenance_Work_Order_Tracker_Portfolio.xlsx) — older prototype
 - [Formula and Business Logic Guide](Fleet_Maintenance_Formula_and_Business_Logic_Guide.md) — historical guide; reconcile with the revised approval rule before release
 
-**Final local files to add to this branch:** `Fleet_Maintenance_Work_Order_Tracker.xlsx`, `Fleet_Maintenance_BRD_Revised.pdf`, `Fleet_Maintenance_UAT_Final.pdf`.
+**File naming note:** The revised BRD was uploaded as `Fleet_BRD_Final.pdf`; this is the version 2.0 BRD, not the historical BRD.
 
 ## Historical Screenshots
 The screenshots below were captured from the original 10-record prototype and should not be mistaken for current 13/14-record UAT evidence.
