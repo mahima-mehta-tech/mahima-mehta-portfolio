@@ -2,21 +2,22 @@
 
 I'm Mahima Mehta, a Calgary-based technology professional with enterprise experience in business and functional analysis, quality assurance, and Agile delivery. [Connect with me on LinkedIn](https://www.linkedin.com/in/mahima-mehta-tech/).
 
-This portfolio showcases practical Business Analysis, data analysis, reporting, and process automation skills through independent projects using simulated data.
+My professional background includes requirements clarification, functional workflows, acceptance criteria, Jira documentation and cross-functional delivery. The independent projects below show how I apply those skills to business problems using simulated data.
 
 ## Portfolio Projects
 
 ### 1. Employee Leave Management | Business Analysis, SQL & Power BI
 
-A business analysis and reporting case study focused on employee leave requests, approval status, leave balances, and management reporting.
+An HR-focused case study covering leave approval rules, employee and manager workflows, data exceptions and management reporting. It includes a documented conceptual current-state and proposed future-state process analysis.
 
 **Highlights**
-- Defined functional requirements, stakeholders, and business rules.
+- Defined functional requirements, stakeholders, business rules and acceptance criteria.
+- Documented illustrative current-state and proposed future-state leave approval workflows, including decision points and exceptions.
 - Used SQL to investigate leave requests, validate data, and identify exceptions.
 - Developed a Power BI dashboard and data model for management reporting.
 - Documented business insights and follow-up questions.
 
-**Tools:** SQL, SQLite, Power BI, DAX, Business Analysis
+**Tools:** SQL, SQLite, Power BI, DAX, process diagrams and requirements documentation. A separate Microsoft Visio swimlane diagram was created for this case study but has not yet been published in this repository.
 
 [View Employee Leave Management Project](projects/employee-leave-management/README.md)
 
@@ -39,6 +40,7 @@ A simulated business analysis and automation case study for maintenance work-ord
 
 - Business Analysis and Requirements Documentation
 - Functional Requirements and Business Rules
+- Conceptual Process Mapping, Workflow Decisions and Gap Analysis
 - SQL and Data Validation
 - Power BI and Dashboard Reporting
 - Microsoft Excel and Power Query
