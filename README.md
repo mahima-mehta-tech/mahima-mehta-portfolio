@@ -17,7 +17,7 @@ An HR-focused case study covering leave approval rules, employee and manager wor
 - Developed a Power BI dashboard and data model for management reporting.
 - Documented business insights and follow-up questions.
 
-**Tools:** SQL, SQLite, Power BI, DAX, process diagrams and requirements documentation. A separate Microsoft Visio swimlane diagram was created for this case study but has not yet been published in this repository.
+**Tools:** SQL, SQLite, Power BI, DAX, process diagrams and requirements documentation. Editable Draw.io process maps are included in the Employee Leave Management project, covering the initial conceptual workflow, proposed future state and cancellation extension.
 
 [View Employee Leave Management Project](projects/employee-leave-management/README.md)
 
