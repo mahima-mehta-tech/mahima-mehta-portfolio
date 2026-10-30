@@ -23,7 +23,7 @@ The original employee/line-manager swimlane on page 1 of the editable Draw.io fi
 
 ## Proposed future state (TO-BE)
 
-![Proposed future-state process map](Employee_Leave_Proposed_Future_State.png)
+![Proposed future-state process map](Employee_Leave_Management_Process_Flows-Proposed%20future%20state.png)
 
 1. **Submit and validate:** An employee submits a request with leave type, dates and requested days (FR-01). The proposed process validates employee, leave type and dates (BR-01). Invalid requests return for correction and resubmission.
 2. **Pending and manager review:** Valid requests are recorded as Pending (FR-03). An authorized manager reviews a direct report's request (FR-02, BR-02); self-approval is prohibited (BR-03). Rejected requests are recorded as Rejected.
@@ -36,7 +36,7 @@ The PNG above is the conceptual design reviewed for this case study. The editabl
 
 ## Cancellation (proposed extension)
 
-![Proposed cancellation extension](Employee_Leave_Cancellation_Extension.png)
+![Proposed cancellation extension](Employee_Leave_Management_Process_Flows-Cancellation%20-%20proposed%20extension.png)
 
 An employee requests cancellation of previously approved leave. The authorized manager or HR reviewer decides whether to approve cancellation. If rejected, the original request remains Approved and the outcome is recorded. If approved, the request is marked Cancelled; any applicable vacation balance restoration depends on confirmed policy. Both outcomes feed notifications and reporting. Cancelled requests are excluded from approved-leave totals (BR-06).
 
