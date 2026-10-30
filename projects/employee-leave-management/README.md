@@ -26,8 +26,8 @@ Managers and HR need clear visibility into employee leave requests, approval sta
 - [Requirements & Business Rules](business-analysis/REQUIREMENTS_AND_RULES.md)
 - [Process Analysis: Current State, Future State and Cancellation](business-analysis/PROCESS_MAPS.md)
 - [Editable Process Flow Diagrams (Draw.io)](business-analysis/Employee_Leave_Management_Process_Flows.drawio)
-- [Future-State Diagram (PNG)](business-analysis/Employee_Leave_Proposed_Future_State.png)
-- [Cancellation Extension (PNG)](business-analysis/Employee_Leave_Cancellation_Extension.png)
+- [Future-State Diagram (PNG)](business-analysis/Employee_Leave_Management_Process_Flows-Proposed%20future%20state.png)
+- [Cancellation Extension (PNG)](business-analysis/Employee_Leave_Management_Process_Flows-Cancellation%20-%20proposed%20extension.png)
 
 The original employee/manager swimlane is preserved as an initial conceptual workflow on page 1 of the editable Draw.io file. It differs from the illustrative manual AS-IS scenario. Pages 2 and 3 show the proposed future state and cancellation extension. Cancellation and HR policy exceptions are proposals requiring validation, not implemented or tested features. The original Microsoft Visio source is not included.
 - [Requirements Traceability Matrix](business-analysis/TRACEABILITY_MATRIX.md)
