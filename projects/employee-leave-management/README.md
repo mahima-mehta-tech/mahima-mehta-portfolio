@@ -24,9 +24,12 @@ Managers and HR need clear visibility into employee leave requests, approval sta
 ## Key Artifacts
 
 - [Requirements & Business Rules](business-analysis/REQUIREMENTS_AND_RULES.md)
-- [Illustrative Current and Proposed Future State Process Maps](business-analysis/PROCESS_MAPS.md) (Mermaid diagrams displayed on GitHub)
+- [Process Analysis: Current State, Future State and Cancellation](business-analysis/PROCESS_MAPS.md)
+- [Editable Process Flow Diagrams (Draw.io)](business-analysis/Employee_Leave_Management_Process_Flows.drawio)
+- [Future-State Diagram (PNG)](business-analysis/Employee_Leave_Proposed_Future_State.png)
+- [Cancellation Extension (PNG)](business-analysis/Employee_Leave_Cancellation_Extension.png)
 
-**Visio artifact status:** I also created a separate employee and line-manager swimlane diagram in Microsoft Visio for this independent case study. Its exported image and editable source are not currently included in this GitHub repository. The linked process maps above are Mermaid diagrams, not the Visio file.
+The original employee/manager swimlane is preserved as an initial conceptual workflow on page 1 of the editable Draw.io file. It differs from the illustrative manual AS-IS scenario. Pages 2 and 3 show the proposed future state and cancellation extension. Cancellation and HR policy exceptions are proposals requiring validation, not implemented or tested features. The original Microsoft Visio source is not included.
 - [Requirements Traceability Matrix](business-analysis/TRACEABILITY_MATRIX.md)
 - [Data Validation & Evidence Status](business-analysis/DATA_VALIDATION_STATUS.md)
 - [User Stories & Acceptance Criteria](business-analysis/USER_STORIES_AND_ACCEPTANCE_CRITERIA.md)
@@ -34,6 +37,10 @@ Managers and HR need clear visibility into employee leave requests, approval sta
 - [SQL Queries](sql/leave_analysis.sql)
 - [Power BI Dashboard & Data Model](power-bi/POWER_BI_DASHBOARD.md)
 - [Synthetic Dataset](data/): source-file names and SQL reproducibility still require independent verification
+
+## Process Analysis
+
+The [process analysis](business-analysis/PROCESS_MAPS.md) explains the illustrative manual baseline, proposed request-validation and approval flow, vacation entitlement checks, HR policy exceptions and cancellation extension. The future-state design checks entitlement before final vacation approval. The cancellation design remains subject to confirmation of HR policy. Diagrams are conceptual and do not establish that an approval application was implemented or tested.
 
 ## Power BI Dashboard
 
