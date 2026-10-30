@@ -51,4 +51,4 @@ Cancellation authority, timing (including after leave begins), restoration and n
 
 Related documentation: [Requirements and Business Rules](REQUIREMENTS_AND_RULES.md), [User Stories and Acceptance Criteria](USER_STORIES_AND_ACCEPTANCE_CRITERIA.md), and [Traceability Matrix](TRACEABILITY_MATRIX.md).
 
-**Artifact status:** The image and editable links above become active once the three diagram files are uploaded to this folder. The original Visio source file is not included; the editable diagrams provided here are in Draw.io format.
+**Diagram files:** The two PNG previews and the three-page editable Draw.io file are included in this folder. The original Microsoft Visio source is not included.
