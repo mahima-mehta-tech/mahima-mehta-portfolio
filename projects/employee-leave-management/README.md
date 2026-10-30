@@ -9,6 +9,7 @@ Managers and HR need clear visibility into employee leave requests, approval sta
 ## What I Did
 
 - Defined the core stakeholders, functional requirements, business rules and scope.
+- Documented an illustrative manual current state and proposed future-state workflow, with approval decisions, correction paths and unresolved HR policy questions.
 - Used SQL to answer practical business questions, validate data and investigate exceptions.
 - Built a four-table Power BI data model and simple DAX measures.
 - Created an interactive dashboard to analyze requests by status, department, leave type and month.
@@ -16,14 +17,16 @@ Managers and HR need clear visibility into employee leave requests, approval sta
 
 ## Skills Demonstrated
 
-**Business Analysis:** Requirements Analysis, Functional Requirements, Business Rules, Stakeholder Needs, Scope Definition  
+**Business Analysis:** Requirements Analysis, Functional Requirements, Business Rules, Stakeholder Needs, Scope Definition, Conceptual Process Mapping  
 **Data Analysis:** SQL, Data Validation, Business-Rule / Exception Analysis  
 **Reporting:** Power BI, Data Modelling, DAX Measures, Dashboarding, Business Insights
 
 ## Key Artifacts
 
 - [Requirements & Business Rules](business-analysis/REQUIREMENTS_AND_RULES.md)
-- [Current and Future State Process Maps](business-analysis/PROCESS_MAPS.md)
+- [Illustrative Current and Proposed Future State Process Maps](business-analysis/PROCESS_MAPS.md) (Mermaid diagrams displayed on GitHub)
+
+**Visio artifact status:** I also created a separate employee and line-manager swimlane diagram in Microsoft Visio for this independent case study. Its exported image and editable source are not currently included in this GitHub repository. The linked process maps above are Mermaid diagrams, not the Visio file.
 - [Requirements Traceability Matrix](business-analysis/TRACEABILITY_MATRIX.md)
 - [Data Validation & Evidence Status](business-analysis/DATA_VALIDATION_STATUS.md)
 - [User Stories & Acceptance Criteria](business-analysis/USER_STORIES_AND_ACCEPTANCE_CRITERIA.md)
@@ -68,7 +71,7 @@ The Power BI model uses:
 
 ## Tools
 
-**SQLite / SQL | Power BI Desktop | DAX | GitHub**
+**SQLite / SQL | Power BI Desktop | DAX | GitHub | Conceptual process mapping**
 
 ## Scope Note
 
